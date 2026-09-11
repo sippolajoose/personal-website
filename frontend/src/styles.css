@@ -88,7 +88,8 @@ html[data-theme='dark'] .topbar {
 
 .nav {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .nav a {
@@ -204,6 +205,17 @@ html[data-theme='dark'] .button-secondary {
   white-space: nowrap;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.language-toggle {
+  min-width: 42px;
+  font-weight: 700;
+}
+
 .theme-toggle:hover {
   transform: translateY(-1px);
 }
@@ -275,6 +287,156 @@ html[data-theme='dark'] .meta {
 
 .subtle {
   color: var(--muted);
+}
+
+.page-intro {
+  max-width: 720px;
+  margin: 8px 0 4px;
+}
+
+.page-intro h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.98;
+}
+
+.projects-view,
+.architecture-view {
+  display: grid;
+  gap: 28px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.project-card,
+.architecture-card {
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.project-card:hover,
+.architecture-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.project-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-index,
+.architecture-card-number {
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.project-link {
+  color: var(--accent-strong);
+  font-size: 1.4rem;
+}
+
+.project-card h2,
+.architecture-card h2 {
+  margin: 36px 0 10px;
+  font-size: 1.4rem;
+}
+
+.project-card p,
+.architecture-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.empty-state {
+  padding: 32px;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+  text-align: center;
+}
+
+.architecture-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-strong);
+}
+
+.architecture-node {
+  display: grid;
+  gap: 5px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-alt);
+}
+
+.architecture-node span {
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+}
+
+.architecture-node small {
+  color: var(--muted);
+}
+
+.architecture-node-primary {
+  border-color: var(--accent);
+}
+
+.architecture-connector {
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+
+.architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.architecture-card {
+  min-height: 190px;
+}
+
+.architecture-card h2 {
+  margin-top: 24px;
+}
+
+.architecture-card-accent {
+  background: var(--accent);
+  color: white;
+}
+
+.architecture-card-accent p,
+.architecture-card-accent .architecture-card-number {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 html[data-theme='dark'] .subtle {
@@ -434,6 +596,31 @@ html[data-theme='dark'] .cv-resume {
 }
 
 @media (max-width: 860px) {
+  .topbar {
+    border-radius: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .project-grid,
+  .architecture-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-connector {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
   .cv-header,
   .cv-item-topline {
     flex-direction: column;
