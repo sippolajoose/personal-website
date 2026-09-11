@@ -1,27 +1,18 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { NAlert, NSpin, NTag } from 'naive-ui';
-import { getProfile } from '../services/api';
 import { useLocale } from '../composables/locale';
-import type { ProfileDocument } from '../types';
+import { useProfileStore } from '../stores/profile';
 
 const { locale } = useLocale();
-const profile = ref<ProfileDocument | null>(null);
-const loading = ref(true);
-const error = ref('');
+const profileStore = useProfileStore();
 
 const copy = computed(() => (locale.value === 'fi'
   ? { eyebrow: 'Työnäytteet', title: 'Projektit', intro: 'Valikoima rakennettuja asioita ja niistä opittuja ratkaisuja.', empty: 'Projekteja ei ole vielä lisätty.' }
   : { eyebrow: 'Selected work', title: 'Projects', intro: 'A selection of things built and the solutions behind them.', empty: 'No projects have been added yet.' }));
 
 onMounted(async () => {
-  try {
-    profile.value = await getProfile();
-  } catch (caughtError) {
-    error.value = caughtError instanceof Error ? caughtError.message : 'Failed to load projects';
-  } finally {
-    loading.value = false;
-  }
+  await profileStore.loadProfile();
 });
 </script>
 
@@ -33,12 +24,12 @@ onMounted(async () => {
       <p class="lede">{{ copy.intro }}</p>
     </header>
 
-    <n-spin :show="loading">
-      <n-alert v-if="error" type="error" :show-icon="true" :title="error" />
-      <div v-else-if="profile?.projects.length" class="project-grid">
-        <article v-for="project in profile.projects" :key="project.name" class="project-card">
+    <n-spin :show="profileStore.loading">
+      <n-alert v-if="profileStore.error" type="error" :show-icon="true" :title="profileStore.error" />
+      <div v-else-if="profileStore.profile?.projects.length" class="project-grid">
+        <article v-for="project in profileStore.profile.projects" :key="project.name" class="project-card">
           <div class="project-card-topline">
-            <span class="project-index">0{{ profile.projects.indexOf(project) + 1 }}</span>
+            <span class="project-index">0{{ profileStore.profile.projects.indexOf(project) + 1 }}</span>
             <a v-if="project.url" class="project-link" :href="project.url" target="_blank" rel="noreferrer" aria-label="Open project">↗</a>
           </div>
           <h2>{{ project.name }}</h2>

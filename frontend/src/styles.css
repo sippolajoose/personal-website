@@ -125,6 +125,10 @@ html[data-theme='dark'] .topbar {
   gap: 24px;
 }
 
+.home-sections {
+  margin-top: 12px;
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--accent);
