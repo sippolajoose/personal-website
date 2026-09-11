@@ -53,6 +53,9 @@ export default {
     apiText: 'Express tarjoaa frontendille profiilin datan.',
     database: 'MongoDB',
     databaseText: 'Profiili on tallennettu yhdeksi dokumentiksi.',
+    flowAria: 'Sovelluksen arkkitehtuuri',
+    frontendNode: 'Vue-frontend',
+    apiNode: 'Express-API',
     browser: 'Selain',
     backend: 'Backend',
     persistence: 'Tallennus'

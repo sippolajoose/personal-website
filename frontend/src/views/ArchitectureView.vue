@@ -12,10 +12,10 @@ const { t } = useI18n();
       <p class="lede">{{ t('architecture.intro') }}</p>
     </header>
 
-    <div class="architecture-flow" aria-label="Application architecture">
-      <div class="architecture-node architecture-node-primary"><span>01</span><strong>Vue frontend</strong><small>{{ t('architecture.browser') }}</small></div>
+    <div class="architecture-flow" :aria-label="t('architecture.flowAria')">
+      <div class="architecture-node architecture-node-primary"><span>01</span><strong>{{ t('architecture.frontendNode') }}</strong><small>{{ t('architecture.browser') }}</small></div>
       <div class="architecture-connector">→</div>
-      <div class="architecture-node"><span>02</span><strong>Express API</strong><small>{{ t('architecture.backend') }}</small></div>
+      <div class="architecture-node"><span>02</span><strong>{{ t('architecture.apiNode') }}</strong><small>{{ t('architecture.backend') }}</small></div>
       <div class="architecture-connector">→</div>
       <div class="architecture-node"><span>03</span><strong>MongoDB</strong><small>{{ t('architecture.persistence') }}</small></div>
     </div>

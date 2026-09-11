@@ -53,6 +53,9 @@ export default {
     apiText: 'Express provides the profile data to the frontend.',
     database: 'MongoDB',
     databaseText: 'The profile is stored as one document.',
+    flowAria: 'Application architecture',
+    frontendNode: 'Vue frontend',
+    apiNode: 'Express API',
     browser: 'Browser',
     backend: 'Backend',
     persistence: 'Persistence'
