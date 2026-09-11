@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { NAlert, NButton, NSpin } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 import { downloadResumePdf } from '../services/api';
-import { useLocale } from '../composables/locale';
 import { useProfileStore } from '../stores/profile';
 
 const profileStore = useProfileStore();
 const exporting = ref(false);
-const { locale } = useLocale();
-const copy = computed(() => locale.value === 'fi'
-  ? { eyebrow: 'CV', title: 'Ansioluettelo', export: 'Vie PDF:nä', loading: 'Ladataan CV:tä…', experience: 'Kokemus', education: 'Koulutus', certificates: 'Sertifikaatit', skills: 'Osaaminen' }
-  : { eyebrow: 'CV', title: 'Curriculum vitae', export: 'Export PDF', loading: 'Loading CV…', experience: 'Experience', education: 'Education', certificates: 'Certificates', skills: 'Skills' });
+const { t } = useI18n();
 
 onMounted(async () => {
   await profileStore.loadProfile();
@@ -31,17 +28,17 @@ async function handleExport() {
   <section>
     <div class="page-heading" style="margin-bottom: 20px">
       <div>
-        <p class="eyebrow">{{ copy.eyebrow }}</p>
-        <h1 class="section-title" style="font-size: 2rem; margin: 0">{{ copy.title }}</h1>
+        <p class="eyebrow">{{ t('cv.eyebrow') }}</p>
+        <h1 class="section-title" style="font-size: 2rem; margin: 0">{{ t('cv.title') }}</h1>
       </div>
 
       <n-button type="primary" size="large" :loading="exporting" @click="handleExport">
-        {{ copy.export }}
+        {{ t('cv.export') }}
       </n-button>
     </div>
 
     <n-spin :show="profileStore.loading">
-      <template #description>{{ copy.loading }}</template>
+      <template #description>{{ t('cv.loading') }}</template>
 
       <n-alert v-if="profileStore.error" type="error" :show-icon="true" :title="profileStore.error" />
 
@@ -49,7 +46,7 @@ async function handleExport() {
         <div class="cv-resume">
           <header class="cv-header">
             <div>
-              <p class="cv-kicker">{{ copy.title }}</p>
+              <p class="cv-kicker">{{ t('cv.title') }}</p>
               <h2 class="cv-name">{{ profileStore.profile.name }}</h2>
               <p class="cv-role">{{ profileStore.profile.headline }}</p>
             </div>
@@ -64,7 +61,7 @@ async function handleExport() {
 
           <div class="cv-grid">
             <section class="cv-panel">
-              <h3 class="cv-section-title">{{ copy.experience }}</h3>
+              <h3 class="cv-section-title">{{ t('cv.experience') }}</h3>
 
               <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${entry.role}`" class="cv-item">
                 <div class="cv-item-topline">
@@ -85,7 +82,7 @@ async function handleExport() {
 
             <aside class="cv-panel cv-side-panel">
               <div>
-                <h3 class="cv-section-title">{{ copy.education }}</h3>
+                <h3 class="cv-section-title">{{ t('cv.education') }}</h3>
                 <article v-for="entry in profileStore.profile.education" :key="`${entry.institution}-${entry.degree}`" class="cv-side-item">
                   <strong>{{ entry.degree }}</strong>
                   <div class="cv-copy">{{ entry.institution }}</div>
@@ -94,7 +91,7 @@ async function handleExport() {
               </div>
 
               <div>
-                <h3 class="cv-section-title">{{ copy.certificates }}</h3>
+                <h3 class="cv-section-title">{{ t('cv.certificates') }}</h3>
                 <article v-for="certificate in profileStore.profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="cv-side-item">
                   <strong>{{ certificate.name }}</strong>
                   <div class="cv-copy">{{ certificate.issuer }}</div>
@@ -103,7 +100,7 @@ async function handleExport() {
               </div>
 
               <div>
-                <h3 class="cv-section-title">{{ copy.skills }}</h3>
+                <h3 class="cv-section-title">{{ t('cv.skills') }}</h3>
                 <div class="cv-skill-list">
                   <span v-for="skill in profileStore.profile.skills" :key="skill">{{ skill }}</span>
                 </div>

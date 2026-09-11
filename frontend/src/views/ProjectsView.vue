@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { NAlert, NSpin, NTag } from 'naive-ui';
-import { useLocale } from '../composables/locale';
+import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '../stores/profile';
 
-const { locale } = useLocale();
 const profileStore = useProfileStore();
-
-const copy = computed(() => (locale.value === 'fi'
-  ? { eyebrow: 'Työnäytteet', title: 'Projektit', intro: 'Valikoima rakennettuja asioita ja niistä opittuja ratkaisuja.', empty: 'Projekteja ei ole vielä lisätty.' }
-  : { eyebrow: 'Selected work', title: 'Projects', intro: 'A selection of things built and the solutions behind them.', empty: 'No projects have been added yet.' }));
+const { t } = useI18n();
 
 onMounted(async () => {
   await profileStore.loadProfile();
@@ -19,9 +15,9 @@ onMounted(async () => {
 <template>
   <section class="projects-view">
     <header class="page-intro">
-      <p class="eyebrow">{{ copy.eyebrow }}</p>
-      <h1>{{ copy.title }}</h1>
-      <p class="lede">{{ copy.intro }}</p>
+      <p class="eyebrow">{{ t('projects.eyebrow') }}</p>
+      <h1>{{ t('projects.title') }}</h1>
+      <p class="lede">{{ t('projects.intro') }}</p>
     </header>
 
     <n-spin :show="profileStore.loading">
@@ -30,7 +26,7 @@ onMounted(async () => {
         <article v-for="project in profileStore.profile.projects" :key="project.name" class="project-card">
           <div class="project-card-topline">
             <span class="project-index">0{{ profileStore.profile.projects.indexOf(project) + 1 }}</span>
-            <a v-if="project.url" class="project-link" :href="project.url" target="_blank" rel="noreferrer" aria-label="Open project">↗</a>
+            <a v-if="project.url" class="project-link" :href="project.url" target="_blank" rel="noreferrer" :aria-label="t('projects.openProject')">↗</a>
           </div>
           <h2>{{ project.name }}</h2>
           <p>{{ project.summary }}</p>
@@ -39,7 +35,7 @@ onMounted(async () => {
           </div>
         </article>
       </div>
-      <p v-else class="empty-state">{{ copy.empty }}</p>
+      <p v-else class="empty-state">{{ t('projects.empty') }}</p>
     </n-spin>
   </section>
 </template>
