@@ -5,7 +5,8 @@ const envSchema = z.object({
   NODE_ENV: z.string().default('development'),
   MONGODB_URI: z.string().min(1).default('mongodb://localhost:27017'),
   MONGODB_DB: z.string().min(1).default('personal_website'),
-  CORS_ORIGIN: z.string().min(1).default('http://localhost:5173')
+  CORS_ORIGIN: z.string().min(1).default('http://localhost:5173'),
+  SEED_CONFIRMATION: z.string().default('')
 });
 
 export const env = envSchema.parse(process.env);

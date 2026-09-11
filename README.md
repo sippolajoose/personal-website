@@ -17,6 +17,15 @@
 5. Seed data: `npm run seed`
 6. Start development: `npm run dev`
 
+The backend never seeds or overwrites profile data when it starts. To deliberately
+replace the local profile with the default test profile, set the confirmation value
+and run the seed command while `MONGODB_URI` points to localhost:
+
+- PowerShell: `$env:SEED_CONFIRMATION='I_UNDERSTAND_THIS_REPLACES_LOCAL_PROFILE'; npm run seed`
+- cmd.exe: `set SEED_CONFIRMATION=I_UNDERSTAND_THIS_REPLACES_LOCAL_PROFILE && npm run seed`
+
+Seeding is refused for non-local MongoDB URIs.
+
 ## Scripts
 
 - `npm run dev` starts backend and frontend together.
