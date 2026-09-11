@@ -1,0 +1,45 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=@site/backend",
+    "dev:frontend": "npm run dev --workspace=@site/frontend",
+    "dev": "concurrently -n backend,frontend -c cyan,magenta \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "npm run build --workspace=@site/backend && npm run build --workspace=@site/frontend",
+    "lint": "eslint . --ext .js,.cjs,.ts,.vue",
+    "format": "prettier --check .",
+    "test": "npm run test --workspace=@site/backend",
+    "typecheck": "npm run typecheck --workspace=@site/backend && npm run typecheck --workspace=@site/frontend",
+    "seed": "npm run seed --workspace=@site/backend"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.0.0",
+    "@types/pdfkit": "^0.13.0",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.0",
+    "ts-jest": "^29.3.1",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.3",
+    "vue-eslint-parser": "^9.4.3",
+    "vue-tsc": "^2.2.0"
+  }
+}
