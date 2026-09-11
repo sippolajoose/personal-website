@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { NAlert, NButton, NCard, NGrid, NGridItem, NSpin } from 'naive-ui';
+import { NAlert, NButton, NSpin } from 'naive-ui';
 import { downloadResumePdf, getProfile } from '../services/api';
 import type { ProfileDocument } from '../types';
 
@@ -49,42 +49,71 @@ async function handleExport() {
       <n-alert v-if="error" type="error" :show-icon="true" :title="error" />
 
       <template v-else-if="profile">
-        <n-card size="large" embedded>
-          <h2 style="margin: 0 0 8px">{{ profile.name }}</h2>
-          <p class="meta">{{ profile.headline }} · {{ profile.location }}</p>
-          <p class="subtle">{{ profile.summary }}</p>
+        <div class="cv-resume">
+          <header class="cv-header">
+            <div>
+              <p class="cv-kicker">Curriculum vitae</p>
+              <h2 class="cv-name">{{ profile.name }}</h2>
+              <p class="cv-role">{{ profile.headline }}</p>
+            </div>
 
-          <n-grid :cols="2" :x-gap="20" :y-gap="20" style="margin-top: 24px" responsive="screen">
-            <n-grid-item span="1">
-              <n-card title="Experience" embedded>
-                <div class="timeline">
-                  <article v-for="entry in profile.experience" :key="`${entry.company}-${entry.role}`" class="timeline-item">
-                    <p class="meta">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></p>
+            <div class="cv-contact">
+              <span>{{ profile.location }}</span>
+              <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+            </div>
+          </header>
+
+          <p class="cv-summary">{{ profile.summary }}</p>
+
+          <div class="cv-grid">
+            <section class="cv-panel">
+              <h3 class="cv-section-title">Experience</h3>
+
+              <article v-for="entry in profile.experience" :key="`${entry.company}-${entry.role}`" class="cv-item">
+                <div class="cv-item-topline">
+                  <div>
                     <strong>{{ entry.role }}</strong>
-                    <div class="subtle">{{ entry.company }}</div>
-                    <p class="subtle">{{ entry.summary }}</p>
-                  </article>
+                    <span class="cv-company"> · {{ entry.company }}</span>
+                  </div>
+                  <span class="cv-date">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></span>
                 </div>
-              </n-card>
-            </n-grid-item>
 
-            <n-grid-item span="1">
-              <n-card title="Education + Certificates" embedded>
-                <div class="list">
-                  <article v-for="entry in profile.education" :key="`${entry.institution}-${entry.degree}`" class="list-item">
-                    <strong>{{ entry.degree }}</strong>
-                    <div class="subtle">{{ entry.institution }}</div>
-                  </article>
+                <p class="cv-copy">{{ entry.summary }}</p>
 
-                  <article v-for="certificate in profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
-                    <strong>{{ certificate.name }}</strong>
-                    <div class="subtle">{{ certificate.issuer }}</div>
-                  </article>
+                <ul v-if="entry.highlights?.length" class="cv-bullets">
+                  <li v-for="highlight in entry.highlights" :key="highlight">{{ highlight }}</li>
+                </ul>
+              </article>
+            </section>
+
+            <aside class="cv-panel cv-side-panel">
+              <div>
+                <h3 class="cv-section-title">Education</h3>
+                <article v-for="entry in profile.education" :key="`${entry.institution}-${entry.degree}`" class="cv-side-item">
+                  <strong>{{ entry.degree }}</strong>
+                  <div class="cv-copy">{{ entry.institution }}</div>
+                  <div class="cv-date">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></div>
+                </article>
+              </div>
+
+              <div>
+                <h3 class="cv-section-title">Certificates</h3>
+                <article v-for="certificate in profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="cv-side-item">
+                  <strong>{{ certificate.name }}</strong>
+                  <div class="cv-copy">{{ certificate.issuer }}</div>
+                  <div class="cv-date">{{ certificate.date }}</div>
+                </article>
+              </div>
+
+              <div>
+                <h3 class="cv-section-title">Skills</h3>
+                <div class="cv-skill-list">
+                  <span v-for="skill in profile.skills" :key="skill">{{ skill }}</span>
                 </div>
-              </n-card>
-            </n-grid-item>
-          </n-grid>
-        </n-card>
+              </div>
+            </aside>
+          </div>
+        </div>
       </template>
     </n-spin>
   </section>

@@ -44,12 +44,15 @@ onMounted(async () => {
           </div>
 
           <n-card size="large" title="Snapshot" embedded>
+            <div v-if="profile.photoUrl" class="profile-photo-wrap">
+              <img :src="profile.photoUrl" :alt="`${profile.name} profile photo`" class="profile-photo" />
+            </div>
             <p class="meta">{{ profile.location }}</p>
             <n-space :wrap="true">
               <n-tag v-for="skill in profile.skills" :key="skill" type="success" round>{{ skill }}</n-tag>
             </n-space>
             <n-space style="margin-top: 18px" :wrap="true">
-              <n-tag v-for="link in profile.links" :key="link.url" type="info" round>
+              <n-tag v-for="link in profile.socialLinks || profile.links" :key="link.url" type="info" round>
                 <a :href="link.url" target="_blank" rel="noreferrer">{{ link.label }}</a>
               </n-tag>
             </n-space>
