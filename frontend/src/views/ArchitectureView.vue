@@ -5,10 +5,10 @@ import { useLocale } from '../composables/locale';
 const { locale } = useLocale();
 const copy = computed(() => locale.value === 'fi'
   ? {
-      eyebrow: 'Järjestelmä', title: 'Miten tämä sivu toimii', intro: 'Portfolio on samalla pieni full-stack-sovellus. Käyttöliittymä, API ja data on pidetty erillään, jotta kokonaisuus on helppo ymmärtää ja ylläpitää.', frontend: 'Frontend', frontendText: 'Vue 3, Vue Router ja Naive UI muodostavat reaktiivisen käyttöliittymän.', api: 'API', apiText: 'Express tarjoaa profiilin, CV:n, PDF-exportin, health-tarkistuksen ja OpenAPI-dokumentaation.', database: 'Data', databaseText: 'MongoDB säilyttää profiilin yhtenä dokumenttina, jonka backend lukee turvallisesti ympäristöstä riippumatta.', boundary: 'Selkeä raja', boundaryText: 'Selain ei puhu suoraan tietokantaan. Kaikki data kulkee backendin validoitujen reittien kautta.'
+      eyebrow: 'Järjestelmä', title: 'Miten tämä sivu toimii', intro: 'Selain näyttää sisällön, backend tarjoaa datan ja MongoDB säilyttää profiilin.', frontend: 'Selain', frontendText: 'Vue rakentaa sivut ja vaihtaa näkymää ilman täyttä sivunlatausta.', api: 'Backend', apiText: 'Express tarjoaa frontendille profiilin datan.', database: 'MongoDB', databaseText: 'Profiili on tallennettu yhdeksi dokumentiksi.'
     }
   : {
-      eyebrow: 'System', title: 'How this site works', intro: 'This portfolio is also a small full-stack application. The UI, API, and data are separated so the system stays easy to understand and maintain.', frontend: 'Frontend', frontendText: 'Vue 3, Vue Router, and Naive UI form the reactive interface.', api: 'API', apiText: 'Express serves the profile, CV, PDF export, health check, and OpenAPI documentation.', database: 'Data', databaseText: 'MongoDB stores the profile as one document, read by the backend through environment-specific configuration.', boundary: 'A clear boundary', boundaryText: 'The browser never talks directly to the database. All data moves through validated backend routes.'
+      eyebrow: 'System', title: 'How this site works', intro: 'The browser displays the content, the backend provides the data, and MongoDB stores the profile.', frontend: 'Browser', frontendText: 'Vue renders the pages and changes views without a full page reload.', api: 'Backend', apiText: 'Express provides the profile data to the frontend.', database: 'MongoDB', databaseText: 'The profile is stored as one document.'
     });
 </script>
 
@@ -32,7 +32,6 @@ const copy = computed(() => locale.value === 'fi'
       <article class="architecture-card"><span class="architecture-card-number">01</span><h2>{{ copy.frontend }}</h2><p>{{ copy.frontendText }}</p></article>
       <article class="architecture-card"><span class="architecture-card-number">02</span><h2>{{ copy.api }}</h2><p>{{ copy.apiText }}</p></article>
       <article class="architecture-card"><span class="architecture-card-number">03</span><h2>{{ copy.database }}</h2><p>{{ copy.databaseText }}</p></article>
-      <article class="architecture-card architecture-card-accent"><span class="architecture-card-number">04</span><h2>{{ copy.boundary }}</h2><p>{{ copy.boundaryText }}</p></article>
     </div>
   </section>
 </template>
