@@ -10,15 +10,7 @@ async function bootstrap() {
   const profiles = database.collection<ProfileDocument>('profiles');
 
   if (env.NODE_ENV !== 'production') {
-    await profiles.updateOne(
-      { _id: 'main' },
-      {
-        $setOnInsert: defaultProfile
-      },
-      {
-        upsert: true
-      }
-    );
+    await profiles.replaceOne({ _id: 'main' }, defaultProfile, { upsert: true });
   }
 
   const app = createApp();

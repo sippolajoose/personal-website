@@ -7,15 +7,7 @@ async function seed() {
   const database = await getDatabase();
   const profiles = database.collection<ProfileDocument>('profiles');
 
-  await profiles.updateOne(
-    { _id: 'main' },
-    {
-      $setOnInsert: defaultProfile
-    },
-    {
-      upsert: true
-    }
-  );
+  await profiles.replaceOne({ _id: 'main' }, defaultProfile, { upsert: true });
 
   console.log('Seeded profile data');
   await closeDatabase();

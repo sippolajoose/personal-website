@@ -7,9 +7,15 @@ export const defaultProfile: ProfileDocument = {
   summary: 'I build clear, maintainable web products with Vue, Node.js, and data-driven backends.',
   location: 'Finland',
   email: 'hello@example.com',
+  photoUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80',
   links: [
+    { label: 'Website', url: 'https://example.com' },
     { label: 'GitHub', url: 'https://github.com/your-name' },
     { label: 'LinkedIn', url: 'https://linkedin.com/in/your-name' }
+  ],
+  socialLinks: [
+    { platform: 'github', label: 'GitHub', url: 'https://github.com/your-name' },
+    { platform: 'linkedin', label: 'LinkedIn', url: 'https://linkedin.com/in/your-name' }
   ],
   skills: ['Vue', 'Node.js', 'Express', 'MongoDB', 'TypeScript'],
   experience: [
