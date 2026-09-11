@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { NAlert, NButton, NCard, NGrid, NGridItem, NSpin, NSpace, NTag } from 'naive-ui';
 import { getProfile } from '../services/api';
 import type { ProfileDocument } from '../types';
+import { useLocale } from '../composables/locale';
 
 const profile = ref<ProfileDocument | null>(null);
 const loading = ref(true);
 const error = ref('');
+const { locale } = useLocale();
+const copy = computed(() => locale.value === 'fi'
+  ? { eyebrow: 'Portfolio + CV', openCv: 'Avaa CV', contact: 'Ota yhteyttä', snapshot: 'Pikakuvaus', experience: 'Kokemus', education: 'Koulutus + sertifikaatit', educationLabel: 'Koulutus', certificate: 'Sertifikaatti', loading: 'Ladataan profiilia…' }
+  : { eyebrow: 'Portfolio + CV', openCv: 'Open CV', contact: 'Contact', snapshot: 'Snapshot', experience: 'Experience', education: 'Education + Certificates', educationLabel: 'Education', certificate: 'Certificate', loading: 'Loading profile…' });
 
 onMounted(async () => {
   try {
@@ -23,27 +28,27 @@ onMounted(async () => {
 <template>
   <section class="hero">
     <n-spin :show="loading">
-      <template #description>Loading profile…</template>
+      <template #description>{{ copy.loading }}</template>
 
       <n-alert v-if="error" type="error" :show-icon="true" :title="error" />
 
       <template v-else-if="profile">
         <div class="hero-grid">
           <div>
-            <p class="eyebrow">Portfolio + CV</p>
+            <p class="eyebrow">{{ copy.eyebrow }}</p>
             <h1 class="title">{{ profile.name }}</h1>
             <p class="lede">{{ profile.headline }}</p>
             <p class="lede">{{ profile.summary }}</p>
 
             <n-space class="actions" style="margin-top: 24px" :wrap="true" align="center">
               <RouterLink to="/cv">
-                <n-button type="primary" size="large">Open CV</n-button>
+                <n-button type="primary" size="large">{{ copy.openCv }}</n-button>
               </RouterLink>
-              <n-button quaternary size="large" tag="a" :href="`mailto:${profile.email}`">Contact</n-button>
+              <n-button quaternary size="large" tag="a" :href="`mailto:${profile.email}`">{{ copy.contact }}</n-button>
             </n-space>
           </div>
 
-          <n-card size="large" title="Snapshot" embedded>
+          <n-card size="large" :title="copy.snapshot" embedded>
             <div v-if="profile.photoUrl" class="profile-photo-wrap">
               <img :src="profile.photoUrl" :alt="`${profile.name} profile photo`" class="profile-photo" />
             </div>
@@ -61,7 +66,7 @@ onMounted(async () => {
 
         <n-grid :cols="2" :x-gap="20" :y-gap="20" responsive="screen">
           <n-grid-item span="1">
-            <n-card title="Experience" embedded>
+            <n-card :title="copy.experience" embedded>
               <div class="timeline">
                 <article v-for="entry in profile.experience" :key="`${entry.company}-${entry.role}`" class="timeline-item">
                   <p class="meta">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></p>
@@ -73,16 +78,16 @@ onMounted(async () => {
           </n-grid-item>
 
           <n-grid-item span="1">
-            <n-card title="Education + Certificates" embedded>
+            <n-card :title="copy.education" embedded>
               <div class="list">
                 <article v-for="entry in profile.education" :key="`${entry.institution}-${entry.degree}`" class="list-item">
-                  <p class="meta">Education</p>
+                  <p class="meta">{{ copy.educationLabel }}</p>
                   <h3 style="margin: 0 0 4px">{{ entry.degree }}</h3>
                   <p class="subtle">{{ entry.institution }}</p>
                 </article>
 
                 <article v-for="certificate in profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
-                  <p class="meta">Certificate</p>
+                  <p class="meta">{{ copy.certificate }}</p>
                   <h3 style="margin: 0 0 4px">{{ certificate.name }}</h3>
                   <p class="subtle">{{ certificate.issuer }} · {{ certificate.date }}</p>
                 </article>
