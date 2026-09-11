@@ -3,6 +3,7 @@ import express from 'express';
 import { env } from './config/env';
 import { errorHandler } from './middleware/errorHandler';
 import { healthRouter } from './routes/health';
+import { openApiRouter } from './routes/openapi';
 import { profileRouter } from './routes/profile';
 import { resumeRouter } from './routes/resume';
 
@@ -17,6 +18,7 @@ export function createApp() {
   app.use(express.json());
 
   app.use('/api', healthRouter);
+  app.use('/api', openApiRouter);
   app.use('/api', profileRouter);
   app.use('/api', resumeRouter);
 

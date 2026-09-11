@@ -3,6 +3,12 @@ export interface ProfileLink {
   url: string;
 }
 
+export interface SocialProfile {
+  platform: 'github' | 'linkedin' | 'website' | 'x' | 'other';
+  label: string;
+  url: string;
+}
+
 export interface ExperienceEntry {
   company: string;
   role: string;
@@ -42,7 +48,9 @@ export interface ProfileDocument {
   summary: string;
   location: string;
   email: string;
+  photoUrl?: string;
   links: ProfileLink[];
+  socialLinks: SocialProfile[];
   skills: string[];
   experience: ExperienceEntry[];
   education: EducationEntry[];
