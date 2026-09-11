@@ -14,6 +14,19 @@ module.exports = [
   {
     ignores: ['**/dist/**', '**/coverage/**', '**/node_modules/**']
   },
+  {
+    files: ['eslint.config.cjs'],
+    languageOptions: {
+      globals: {
+        __dirname: 'readonly',
+        module: 'readonly',
+        require: 'readonly'
+      }
+    },
+    rules: {
+      'no-undef': 'off'
+    }
+  },
   js.configs.recommended,
   {
     files: ['backend/**/*.ts'],
@@ -59,13 +72,14 @@ module.exports = [
     }
   },
   {
-    files: ['frontend/**/*.ts', 'frontend/**/*.js'],
+    files: ['frontend/src/**/*.ts', 'frontend/src/**/*.js'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         project: ['./frontend/tsconfig.json'],
         tsconfigRootDir: __dirname,
-        sourceType: 'module'
+        sourceType: 'module',
+        extraFileExtensions: ['.vue']
       },
       globals: globals.browser
     },
@@ -79,14 +93,34 @@ module.exports = [
     }
   },
   {
-    files: ['frontend/**/*.vue'],
+    files: ['frontend/vite.config.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        sourceType: 'module',
+        tsconfigRootDir: __dirname
+      },
+      globals: globals.node
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      ...typescriptRules,
+      'no-undef': 'off'
+    }
+  },
+  {
+    files: ['frontend/src/**/*.vue'],
     languageOptions: {
       parser: vueParser,
       parserOptions: {
         parser: tsParser,
         project: ['./frontend/tsconfig.json'],
         tsconfigRootDir: __dirname,
-        sourceType: 'module'
+        sourceType: 'module',
+        extraFileExtensions: ['.vue']
       },
       globals: globals.browser
     },
