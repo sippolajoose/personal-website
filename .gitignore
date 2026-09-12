@@ -8,4 +8,5 @@ backend/dist
 frontend/dist
 backend/coverage
 frontend/coverage
+frontend/public/images/profile.jpg
 .DS_Store
