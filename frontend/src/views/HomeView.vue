@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
-import { NAlert, NButton, NCard, NGrid, NGridItem, NSpin, NSpace, NTag } from 'naive-ui';
+import { NAlert, NButton, NCard, NSpin, NSpace, NTag } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '../stores/profile';
+import { getLocalizedText } from '../utils/localizedText';
 
 const profileStore = useProfileStore();
-const { t } = useI18n();
+const { locale, t } = useI18n();
+const localized = (value: Parameters<typeof getLocalizedText>[0]) => getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
 
 onMounted(async () => {
   await profileStore.loadProfile();
@@ -52,32 +54,30 @@ onMounted(async () => {
           </n-card>
         </div>
 
-        <n-grid class="home-sections" :cols="2" :x-gap="20" :y-gap="20" responsive="screen">
-          <n-grid-item span="1">
+        <div class="home-sections">
+          <div class="home-column">
             <n-card :title="t('home.experience')" embedded>
               <div class="timeline">
-                <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${entry.role}`" class="timeline-item">
+                <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${localized(entry.role)}`" class="timeline-item">
                   <p class="meta">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></p>
-                  <h3 style="margin: 0 0 4px">{{ entry.role }} · {{ entry.company }}</h3>
-                  <p class="subtle">{{ entry.summary }}</p>
+                  <h3 style="margin: 0 0 4px">{{ localized(entry.role) }} · {{ entry.company }}</h3>
+                  <p class="subtle">{{ localized(entry.summary) }}</p>
                 </article>
               </div>
             </n-card>
-          </n-grid-item>
+          </div>
 
-          <n-grid-item span="1">
+          <div class="home-column">
             <n-card :title="t('home.education')" embedded>
               <div class="list">
-                <article v-for="entry in profileStore.profile.education" :key="`${entry.institution}-${entry.degree}`" class="list-item">
+                <article v-for="entry in profileStore.profile.education" :key="`${localized(entry.institution)}-${localized(entry.degree)}`" class="list-item">
                   <p class="meta">{{ t('home.educationLabel') }}</p>
-                  <h3 style="margin: 0 0 4px">{{ entry.degree }}</h3>
-                  <p class="subtle">{{ entry.institution }}</p>
+                  <h3 style="margin: 0 0 4px">{{ localized(entry.degree) }}</h3>
+                  <p class="subtle">{{ localized(entry.institution) }}</p>
                 </article>
               </div>
             </n-card>
-          </n-grid-item>
 
-          <n-grid-item span="1">
             <n-card :title="t('home.certificates')" embedded>
               <div class="list">
                 <article v-for="certificate in profileStore.profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
@@ -87,8 +87,8 @@ onMounted(async () => {
                 </article>
               </div>
             </n-card>
-          </n-grid-item>
-        </n-grid>
+          </div>
+        </div>
       </template>
     </n-spin>
   </section>
