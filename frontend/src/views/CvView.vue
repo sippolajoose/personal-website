@@ -4,10 +4,12 @@ import { NAlert, NButton, NSpin } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { downloadResumePdf } from '../services/api';
 import { useProfileStore } from '../stores/profile';
+import { getLocalizedText } from '../utils/localizedText';
 
 const profileStore = useProfileStore();
 const exporting = ref(false);
-const { t } = useI18n();
+const { locale, t } = useI18n();
+const localized = (value: Parameters<typeof getLocalizedText>[0]) => getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
 
 onMounted(async () => {
   await profileStore.loadProfile();
@@ -17,7 +19,7 @@ async function handleExport() {
   exporting.value = true;
 
   try {
-    await downloadResumePdf();
+    await downloadResumePdf(locale.value === 'fi' ? 'fi' : 'en');
   } finally {
     exporting.value = false;
   }
@@ -63,19 +65,19 @@ async function handleExport() {
             <section class="cv-panel">
               <h3 class="cv-section-title">{{ t('cv.experience') }}</h3>
 
-              <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${entry.role}`" class="cv-item">
+              <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${localized(entry.role)}`" class="cv-item">
                 <div class="cv-item-topline">
                   <div>
-                    <strong>{{ entry.role }}</strong>
+                    <strong>{{ localized(entry.role) }}</strong>
                     <span class="cv-company"> · {{ entry.company }}</span>
                   </div>
                   <span class="cv-date">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></span>
                 </div>
 
-                <p class="cv-copy">{{ entry.summary }}</p>
+                <p class="cv-copy">{{ localized(entry.summary) }}</p>
 
                 <ul v-if="entry.highlights?.length" class="cv-bullets">
-                  <li v-for="highlight in entry.highlights" :key="highlight">{{ highlight }}</li>
+                  <li v-for="highlight in entry.highlights" :key="localized(highlight)">{{ localized(highlight) }}</li>
                 </ul>
               </article>
             </section>
@@ -83,9 +85,9 @@ async function handleExport() {
             <aside class="cv-panel cv-side-panel">
               <div>
                 <h3 class="cv-section-title">{{ t('cv.education') }}</h3>
-                <article v-for="entry in profileStore.profile.education" :key="`${entry.institution}-${entry.degree}`" class="cv-side-item">
-                  <strong>{{ entry.degree }}</strong>
-                  <div class="cv-copy">{{ entry.institution }}</div>
+                <article v-for="entry in profileStore.profile.education" :key="`${localized(entry.institution)}-${localized(entry.degree)}`" class="cv-side-item">
+                  <strong>{{ localized(entry.degree) }}</strong>
+                  <div class="cv-copy">{{ localized(entry.institution) }}</div>
                   <div class="cv-date">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></div>
                 </article>
               </div>

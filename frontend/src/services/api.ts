@@ -1,4 +1,5 @@
 import type { ProfileDocument } from '../types';
+import type { Locale } from '../i18n';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000/api';
 
@@ -16,8 +17,8 @@ export async function getProfile(): Promise<ProfileDocument> {
   return readJson<ProfileDocument>('/profile');
 }
 
-export async function downloadResumePdf(): Promise<void> {
-  const response = await fetch(`${baseUrl}/resume/pdf`);
+export async function downloadResumePdf(locale: Locale): Promise<void> {
+  const response = await fetch(`${baseUrl}/resume/pdf?locale=${locale}`);
 
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);

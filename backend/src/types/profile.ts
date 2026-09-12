@@ -3,6 +3,13 @@ export interface ProfileLink {
   url: string;
 }
 
+export interface LocalizedText {
+  fi: string;
+  en: string;
+}
+
+export type LocalizedTextValue = string | LocalizedText;
+
 export interface SocialProfile {
   platform: 'github' | 'linkedin' | 'website' | 'x' | 'other';
   label: string;
@@ -11,20 +18,20 @@ export interface SocialProfile {
 
 export interface ExperienceEntry {
   company: string;
-  role: string;
+  role: LocalizedTextValue;
   startDate: string;
   endDate?: string;
-  summary: string;
-  highlights: string[];
+  summary: LocalizedTextValue;
+  highlights: LocalizedTextValue[];
   technologies: string[];
 }
 
 export interface EducationEntry {
-  institution: string;
-  degree: string;
+  institution: LocalizedTextValue;
+  degree: LocalizedTextValue;
   startDate: string;
   endDate?: string;
-  summary?: string;
+  summary?: LocalizedTextValue;
 }
 
 export interface CertificateEntry {

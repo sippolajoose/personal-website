@@ -21,18 +21,39 @@ export const defaultProfile: ProfileDocument = {
   experience: [
     {
       company: 'Example Company',
-      role: 'Software Engineer',
+      role: {
+        fi: 'Ohjelmistoinsinööri',
+        en: 'Software Engineer'
+      },
       startDate: '2022-01',
       endDate: 'Present',
-      summary: 'Built customer-facing web features and backend APIs.',
-      highlights: ['Improved core workflows', 'Built reusable components'],
+      summary: {
+        fi: 'Rakensin asiakaslähtöisiä verkkopalveluita ja backend-rajapintoja.',
+        en: 'Built customer-facing web features and backend APIs.'
+      },
+      highlights: [
+        {
+          fi: 'Paransin keskeisiä työprosesseja',
+          en: 'Improved core workflows'
+        },
+        {
+          fi: 'Rakensin uudelleenkäytettäviä komponentteja',
+          en: 'Built reusable components'
+        }
+      ],
       technologies: ['Vue', 'Node.js', 'MongoDB']
     }
   ],
   education: [
     {
-      institution: 'Example University',
-      degree: 'BSc in Computer Science',
+      institution: {
+        fi: 'Jyväskylän yliopisto',
+        en: 'University of Jyväskylä'
+      },
+      degree: {
+        fi: 'Tietojenkäsittelytieteen kandidaatti',
+        en: 'BSc in Computer Science'
+      },
       startDate: '2018-09',
       endDate: '2021-05'
     }

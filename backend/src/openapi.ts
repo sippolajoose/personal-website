@@ -21,18 +21,36 @@ const profileExample: ProfileDocument = {
   experience: [
     {
       company: 'Example Company',
-      role: 'Software Engineer',
+      role: {
+        fi: 'Ohjelmistoinsinööri',
+        en: 'Software Engineer'
+      },
       startDate: '2022-01',
       endDate: 'Present',
-      summary: 'Built customer-facing web features and backend APIs.',
-      highlights: ['Improved core workflows', 'Built reusable components'],
+      summary: {
+        fi: 'Rakensin asiakaslähtöisiä verkkopalveluita ja backend-rajapintoja.',
+        en: 'Built customer-facing web features and backend APIs.'
+      },
+      highlights: [
+        {
+          fi: 'Paransin keskeisiä työprosesseja',
+          en: 'Improved core workflows'
+        },
+        {
+          fi: 'Rakensin uudelleenkäytettäviä komponentteja',
+          en: 'Built reusable components'
+        }
+      ],
       technologies: ['Vue', 'Node.js', 'MongoDB']
     }
   ],
   education: [
     {
       institution: 'Example University',
-      degree: 'BSc in Computer Science',
+      degree: {
+        fi: 'Tietojenkäsittelytieteen kandidaatti',
+        en: 'BSc in Computer Science'
+      },
       startDate: '2018-09',
       endDate: '2021-05'
     }
@@ -123,6 +141,15 @@ export const openApiDocument = {
         tags: ['Resume'],
         summary: 'Download the resume as a PDF',
         operationId: 'downloadResumePdf',
+        parameters: [
+          {
+            name: 'locale',
+            in: 'query',
+            required: false,
+            schema: { type: 'string', enum: ['fi', 'en'], default: 'en' },
+            description: 'Language used for localized resume content'
+          }
+        ],
         responses: {
           '200': {
             description: 'PDF resume file',
@@ -158,17 +185,41 @@ export const openApiDocument = {
         },
         required: ['platform', 'label', 'url']
       },
+      LocalizedText: {
+        type: 'object',
+        properties: {
+          fi: { type: 'string' },
+          en: { type: 'string' }
+        },
+        required: ['fi', 'en']
+      },
       ExperienceEntry: {
         type: 'object',
         properties: {
           company: { type: 'string' },
-          role: { type: 'string' },
+          role: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          },
           startDate: { type: 'string' },
           endDate: { type: 'string' },
-          summary: { type: 'string' },
+          summary: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          }
+          },
           highlights: {
             type: 'array',
-            items: { type: 'string' }
+            items: {
+              oneOf: [
+                { type: 'string' },
+                { $ref: '#/components/schemas/LocalizedText' }
+              ]
+            }
           },
           technologies: {
             type: 'array',
@@ -180,11 +231,25 @@ export const openApiDocument = {
       EducationEntry: {
         type: 'object',
         properties: {
-          institution: { type: 'string' },
-          degree: { type: 'string' },
+          institution: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          },
+          degree: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          },
           startDate: { type: 'string' },
           endDate: { type: 'string' },
-          summary: { type: 'string' }
+          summary: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
         },
         required: ['institution', 'degree', 'startDate']
       },
