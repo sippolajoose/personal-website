@@ -57,7 +57,16 @@ export default {
     apiNode: 'Express API',
     browser: 'Browser',
     backend: 'Backend',
-    persistence: 'Persistence'
+    persistence: 'Persistence',
+    stackEyebrow: 'Technology choices',
+    stackTitle: 'The tools behind the site',
+    stackIntro: 'The stack is intentionally small: each tool has a clear role in building, serving, storing, or validating the site.',
+    frontendStack: 'Frontend',
+    frontendStackText: 'Vue handles the interface, while Vite, routing, state, localization, and the component library keep the client-side application focused.',
+    backendStack: 'Backend and API',
+    backendStackText: 'The API is a small Express service with typed configuration, MongoDB persistence, validation, and server-side PDF generation.',
+    qualityStack: 'Delivery and quality',
+    qualityStackText: 'Docker Compose provides local infrastructure, and automated tests and formatting tools help keep changes predictable.'
   },
   apiGuide: {
     eyebrow: 'API Guide',

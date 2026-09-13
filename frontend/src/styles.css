@@ -452,6 +452,68 @@ html[data-theme='dark'] .meta {
   color: rgba(255, 255, 255, 0.82);
 }
 
+.architecture-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.architecture-stack-header {
+  max-width: 720px;
+}
+
+.architecture-stack-header h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.architecture-stack-header p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.architecture-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.architecture-stack-card {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.architecture-stack-card h3 {
+  margin: 24px 0 10px;
+  font-size: 1.15rem;
+}
+
+.architecture-stack-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.architecture-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.architecture-tags span {
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-alt);
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
 html[data-theme='dark'] .subtle {
   color: #edf3ff;
 }
@@ -623,6 +685,7 @@ html[data-theme='dark'] .cv-resume {
 
   .project-grid,
   .architecture-grid,
+  .architecture-stack-grid,
   .home-sections {
     grid-template-columns: 1fr;
   }
