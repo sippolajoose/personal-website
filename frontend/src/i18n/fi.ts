@@ -3,7 +3,6 @@ export default {
     brand: 'Personal Website',
     navigation: {
       home: 'Etusivu',
-      cv: 'CV',
       projects: 'Projektit',
       architecture: 'Arkkitehtuuri',
       apiGuide: 'API-opas'
@@ -15,8 +14,8 @@ export default {
     language: 'EN'
   },
   home: {
-    eyebrow: 'Portfolio + CV',
-    openCv: 'Avaa CV',
+    eyebrow: 'CV',
+    exportCv: 'Vie CV PDF:nä',
     contact: 'Ota yhteyttä',
     snapshot: 'Pikakuvaus',
     experience: 'Kokemus',

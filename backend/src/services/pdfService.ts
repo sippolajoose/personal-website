@@ -28,7 +28,7 @@ export function streamProfilePdf(response: Response, profile: ProfileDocument, l
   document.moveDown(0.8);
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Yhteenveto' : 'Summary');
-  document.fontSize(11).fillColor('#1f2937').text(profile.summary);
+  document.fontSize(11).fillColor('#1f2937').text(getLocalizedText(profile.summary, locale));
   document.moveDown(0.6);
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Työkokemus' : 'Experience');

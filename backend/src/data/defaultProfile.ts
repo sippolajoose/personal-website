@@ -4,7 +4,10 @@ export const defaultProfile: ProfileDocument = {
   _id: 'main',
   name: 'Your Name',
   headline: 'Full-stack developer',
-  summary: 'I build clear, maintainable web products with Vue, Node.js, and data-driven backends.',
+  summary: {
+    fi: 'Rakennan selkeitä ja ylläpidettäviä verkkopalveluita Vuen, Node.js:n ja dataohjautuvien taustajärjestelmien avulla.',
+    en: 'I build clear, maintainable web products with Vue, Node.js, and data-driven backends.'
+  },
   location: 'Finland',
   email: 'hello@example.com',
   photoUrl: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80',

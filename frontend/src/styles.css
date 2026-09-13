@@ -534,10 +534,11 @@ html[data-theme='dark'] .cv-resume {
 .cv-panel {
   display: grid;
   gap: 18px;
+  align-content: start;
 }
 
 .cv-section-title {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;

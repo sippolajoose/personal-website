@@ -33,7 +33,6 @@ onBeforeUnmount(() => {
 
         <nav class="nav">
           <router-link to="/">{{ t('app.navigation.home') }}</router-link>
-          <router-link to="/cv">{{ t('app.navigation.cv') }}</router-link>
           <router-link to="/projects">{{ t('app.navigation.projects') }}</router-link>
           <router-link to="/architecture">{{ t('app.navigation.architecture') }}</router-link>
           <router-link to="/api-guide">{{ t('app.navigation.apiGuide') }}</router-link>

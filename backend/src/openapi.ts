@@ -4,7 +4,10 @@ const profileExample: ProfileDocument = {
   _id: 'main',
   name: 'Your Name',
   headline: 'Full-stack developer',
-  summary: 'I build clear, maintainable web products with Vue, Node.js, and data-driven backends.',
+  summary: {
+    fi: 'Rakennan selkeitä ja ylläpidettäviä verkkopalveluita Vuen, Node.js:n ja dataohjautuvien taustajärjestelmien avulla.',
+    en: 'I build clear, maintainable web products with Vue, Node.js, and data-driven backends.'
+  },
   location: 'Finland',
   email: 'hello@example.com',
   photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
@@ -282,7 +285,12 @@ export const openApiDocument = {
           _id: { type: 'string', const: 'main' },
           name: { type: 'string' },
           headline: { type: 'string' },
-          summary: { type: 'string' },
+          summary: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          },
           location: { type: 'string' },
           email: { type: 'string', format: 'email' },
           photoUrl: { type: 'string', format: 'uri' },

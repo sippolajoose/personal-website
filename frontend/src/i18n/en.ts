@@ -3,7 +3,6 @@ export default {
     brand: 'Personal Website',
     navigation: {
       home: 'Home',
-      cv: 'CV',
       projects: 'Projects',
       architecture: 'Architecture',
       apiGuide: 'API Guide'
@@ -15,8 +14,8 @@ export default {
     language: 'FI'
   },
   home: {
-    eyebrow: 'Portfolio + CV',
-    openCv: 'Open CV',
+    eyebrow: 'CV',
+    exportCv: 'Export CV as PDF',
     contact: 'Contact',
     snapshot: 'Snapshot',
     experience: 'Experience',

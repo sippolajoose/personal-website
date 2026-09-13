@@ -52,7 +52,7 @@ export interface ProfileDocument {
   _id: 'main';
   name: string;
   headline: string;
-  summary: string;
+  summary: LocalizedTextValue;
   location: string;
   email: string;
   photoUrl?: string;
