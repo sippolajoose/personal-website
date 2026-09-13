@@ -5,7 +5,8 @@ export default {
       home: 'Etusivu',
       projects: 'Projektit',
       architecture: 'Arkkitehtuuri',
-      apiGuide: 'API-opas'
+      apiGuide: 'API-opas',
+      playground: 'Minigolf'
     },
     theme: {
       light: 'Vaalea tila',
@@ -74,6 +75,29 @@ export default {
     intro: 'Tutki endpointteja, tarkastele pyyntöjä ja kokeile APIa suoraan tällä sivulla.',
     raw: 'Avaa OpenAPI JSON',
     loading: 'Ladataan interaktiivista dokumentaatiota…'
+  },
+  playground: {
+    eyebrow: 'Minigolf',
+    title: 'Rauhallinen minigolfrata',
+    intro: 'Vedä palloa taaksepäin, päästä irti ja yritä löytää reikä mahdollisimman vähillä lyönneillä.',
+    courseLabel: 'Minimalistinen rata',
+    randomCourse: 'Satunnainen rata',
+    hole: 'Reikä',
+    strokes: 'Lyönnit',
+    reset: 'Nollaa rata',
+    regenerate: 'Arvo uusi rata',
+    courseAria: 'Minimalistinen minigolfrata',
+    ballAria: 'Golfpallo. Tähtää vetämällä ja lyö päästämällä irti.',
+    controls: 'Ohjaimet',
+    help: 'Tähtää vetämällä pallosta taaksepäin. Boosterit kiihdyttävät lyöntiä ja rampit nostavat pallon esteiden yli.',
+    settings: 'Radan asetukset',
+    obstacleCount: 'Esteet',
+    bonusCount: 'Boosterit ja hyppyrit',
+    currentScore: 'Tämä rata',
+    totalScore: 'Yhteensä',
+    holeComplete: 'Rata suoritettu. Hieno lyönti.',
+    nextHole: 'Seuraava reikä',
+    playAgain: 'Pelaa uudelleen'
   },
   errors: {
     profile: 'Profiilin lataaminen epäonnistui.'

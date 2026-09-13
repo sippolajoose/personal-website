@@ -314,9 +314,237 @@ html[data-theme='dark'] .meta {
 }
 
 .projects-view,
-.architecture-view {
+.architecture-view,
+.playground-view {
   display: grid;
   gap: 28px;
+}
+
+.golf-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 0.7fr);
+  gap: 18px;
+}
+
+.playground-panel {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.golf-course-panel {
+  min-width: 0;
+}
+
+.playground-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.playground-label,
+.playground-coordinate,
+.playground-help {
+  margin: 0;
+}
+
+.playground-label {
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.playground-coordinate,
+.playground-help {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.golf-settings {
+  display: grid;
+  gap: 16px;
+  margin: 22px 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.golf-slider {
+  display: grid;
+  gap: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.golf-slider > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.golf-slider output {
+  color: var(--accent-strong);
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+}
+
+.golf-slider input {
+  width: 100%;
+  accent-color: var(--accent-strong);
+  cursor: pointer;
+}
+
+.playground-coordinate {
+  margin-top: 5px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.golf-course {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 14px;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.golf-course-surface {
+  fill: var(--bg-alt);
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+}
+
+.golf-obstacle {
+  fill: #111;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.golf-obstacle-circle {
+  fill: #111;
+}
+
+.golf-obstacle-triangle {
+  fill: #111;
+}
+
+.golf-feature-surface {
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.golf-booster-surface {
+  fill: color-mix(in srgb, var(--accent) 22%, var(--bg-alt));
+  stroke: var(--accent);
+  stroke-dasharray: 7 5;
+}
+
+.golf-feature-arrow {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.golf-ramp-surface {
+  fill: color-mix(in srgb, var(--accent-strong) 20%, var(--bg-alt));
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+}
+
+.golf-ramp-texture {
+  fill: none;
+  stroke: var(--surface-strong);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+  opacity: 0.7;
+}
+
+.golf-hole {
+  fill: var(--text);
+  opacity: 0.9;
+}
+
+.golf-hole-center {
+  fill: var(--accent);
+}
+
+.golf-aim-guide {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-width: 2;
+  opacity: 0.85;
+}
+
+.golf-ball {
+  fill: var(--surface-strong);
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  cursor: grab;
+  filter: drop-shadow(0 4px 4px rgba(23, 32, 51, 0.2));
+}
+
+.golf-ball-shadow {
+  fill: var(--text);
+  opacity: 0.16;
+}
+
+.golf-ball-aiming {
+  cursor: grabbing;
+  fill: var(--accent);
+}
+
+.golf-info-panel {
+  align-self: start;
+}
+
+.golf-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.golf-stat {
+  display: grid;
+  gap: 5px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-alt);
+}
+
+.golf-stat span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.golf-stat strong {
+  color: var(--accent-strong);
+  font-size: 1.4rem;
+}
+
+.golf-hole-message {
+  margin: 18px 0 0;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.golf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
 }
 
 .project-grid {
@@ -686,7 +914,8 @@ html[data-theme='dark'] .cv-resume {
   .project-grid,
   .architecture-grid,
   .architecture-stack-grid,
-  .home-sections {
+  .home-sections,
+  .golf-layout {
     grid-template-columns: 1fr;
   }
 

@@ -5,7 +5,8 @@ export default {
       home: 'Home',
       projects: 'Projects',
       architecture: 'Architecture',
-      apiGuide: 'API Guide'
+      apiGuide: 'API Guide',
+      playground: 'Minigolf'
     },
     theme: {
       light: 'Light mode',
@@ -74,6 +75,29 @@ export default {
     intro: 'Click through the endpoints, inspect request bodies, and try the API directly from this page.',
     raw: 'Open raw OpenAPI JSON',
     loading: 'Loading interactive docs…'
+  },
+  playground: {
+    eyebrow: 'Minigolf',
+    title: 'A quiet round of mini golf',
+    intro: 'Drag the ball backwards, release, and find the hole in as few strokes as possible.',
+    courseLabel: 'Minimal course',
+    randomCourse: 'Random course',
+    hole: 'Hole',
+    strokes: 'Strokes',
+    reset: 'Reset course',
+    regenerate: 'Regenerate course',
+    courseAria: 'A minimalist mini golf course',
+    ballAria: 'Golf ball. Drag to aim and release to shoot.',
+    controls: 'Controls',
+    help: 'Pull back from the ball to aim. Boosters speed up a shot, and ramps send the ball over obstacles.',
+    settings: 'Course settings',
+    obstacleCount: 'Obstacles',
+    bonusCount: 'Boosters and ramps',
+    currentScore: 'This course',
+    totalScore: 'Total',
+    holeComplete: 'Course complete. Nice shot.',
+    nextHole: 'Next hole',
+    playAgain: 'Play again'
   },
   errors: {
     profile: 'Failed to load profile.'
