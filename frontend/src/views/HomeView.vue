@@ -55,7 +55,7 @@ async function handleExport() {
             </div>
               <p class="meta">{{ profileStore.profile.location }}</p>
             <n-space :wrap="true">
-                <n-tag v-for="skill in profileStore.profile.skills" :key="skill" type="success" round>{{ skill }}</n-tag>
+                <n-tag v-for="skill in profileStore.profile.skills || []" :key="skill" type="success" round>{{ skill }}</n-tag>
             </n-space>
             <n-space style="margin-top: 18px" :wrap="true">
               <n-tag v-for="link in profileStore.profile.socialLinks || profileStore.profile.links" :key="link.url" type="info" round>
@@ -69,10 +69,10 @@ async function handleExport() {
           <div class="home-column">
             <n-card :title="t('home.experience')" embedded>
               <div class="timeline">
-                <article v-for="entry in profileStore.profile.experience" :key="`${entry.company}-${localized(entry.role)}`" class="timeline-item">
+                <article v-for="(entry, index) in profileStore.profile.experience || []" :key="`experience-${index}`" class="timeline-item">
                   <p class="meta">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></p>
                   <h3 style="margin: 0 0 4px">{{ localized(entry.role) }} · {{ entry.company }}</h3>
-                  <p class="subtle">{{ localized(entry.summary) }}</p>
+                  <p v-if="localized(entry.summary)" class="subtle">{{ localized(entry.summary) }}</p>
                 </article>
               </div>
             </n-card>
@@ -81,7 +81,7 @@ async function handleExport() {
           <div class="home-column">
             <n-card :title="t('home.education')" embedded>
               <div class="list">
-                <article v-for="entry in profileStore.profile.education" :key="`${localized(entry.institution)}-${localized(entry.degree)}`" class="list-item">
+                <article v-for="(entry, index) in profileStore.profile.education || []" :key="`education-${index}`" class="list-item">
                   <p class="meta">{{ t('home.educationLabel') }}</p>
                   <h3 style="margin: 0 0 4px">{{ localized(entry.degree) }}</h3>
                   <p class="subtle">{{ localized(entry.institution) }}</p>
@@ -91,7 +91,7 @@ async function handleExport() {
 
             <n-card :title="t('home.certificates')" embedded>
               <div class="list">
-                <article v-for="certificate in profileStore.profile.certificates" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
+                <article v-for="certificate in profileStore.profile.certificates || []" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
                   <p class="meta">{{ t('home.certificate') }}</p>
                   <h3 style="margin: 0 0 4px">{{ certificate.name }}</h3>
                   <p class="subtle">{{ certificate.issuer }} · {{ certificate.date }}</p>

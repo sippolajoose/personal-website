@@ -40,7 +40,7 @@ export default {
     eyebrow: 'Työnäytteet',
     title: 'Projektit',
     intro: 'Valikoima rakennettuja asioita ja niistä opittuja ratkaisuja.',
-    empty: 'Projekteja ei ole vielä lisätty.',
+    empty: 'Siirryin työelämään jo toisena opiskeluvuotenani, joten henkilökohtaiset projektit ovat jääneet taka-alalle. Katsotaan, milloin tänne saadaan jotain mielenkiintoista.',
     openProject: 'Avaa projekti'
   },
   architecture: {

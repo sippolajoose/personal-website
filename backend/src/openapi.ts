@@ -193,8 +193,7 @@ export const openApiDocument = {
         properties: {
           fi: { type: 'string' },
           en: { type: 'string' }
-        },
-        required: ['fi', 'en']
+        }
       },
       ExperienceEntry: {
         type: 'object',
@@ -213,7 +212,6 @@ export const openApiDocument = {
               { type: 'string' },
               { $ref: '#/components/schemas/LocalizedText' }
             ]
-          }
           },
           highlights: {
             type: 'array',
@@ -229,7 +227,7 @@ export const openApiDocument = {
             items: { type: 'string' }
           }
         },
-        required: ['company', 'role', 'startDate', 'summary', 'highlights', 'technologies']
+        required: ['company', 'role', 'startDate']
       },
       EducationEntry: {
         type: 'object',
@@ -253,6 +251,7 @@ export const openApiDocument = {
               { type: 'string' },
               { $ref: '#/components/schemas/LocalizedText' }
             ]
+          }
         },
         required: ['institution', 'degree', 'startDate']
       },

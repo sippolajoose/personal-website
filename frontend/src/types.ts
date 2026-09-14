@@ -4,8 +4,8 @@ export interface ProfileLink {
 }
 
 export interface LocalizedText {
-  fi: string;
-  en: string;
+  fi?: string;
+  en?: string;
 }
 
 export type LocalizedTextValue = string | LocalizedText;
@@ -21,9 +21,9 @@ export interface ExperienceEntry {
   role: LocalizedTextValue;
   startDate: string;
   endDate?: string;
-  summary: LocalizedTextValue;
-  highlights: LocalizedTextValue[];
-  technologies: string[];
+  summary?: LocalizedTextValue;
+  highlights?: LocalizedTextValue[];
+  technologies?: string[];
 }
 
 export interface EducationEntry {

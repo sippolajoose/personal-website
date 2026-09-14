@@ -28,22 +28,28 @@ export function streamProfilePdf(response: Response, profile: ProfileDocument, l
   document.moveDown(0.8);
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Yhteenveto' : 'Summary');
-  document.fontSize(11).fillColor('#1f2937').text(getLocalizedText(profile.summary, locale));
+  const profileSummary = getLocalizedText(profile.summary, locale);
+  if (profileSummary) {
+    document.fontSize(11).fillColor('#1f2937').text(profileSummary);
+  }
   document.moveDown(0.6);
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Työkokemus' : 'Experience');
-  profile.experience.forEach((entry) => {
+  (profile.experience || []).forEach((entry) => {
     document.fontSize(11).fillColor('#111827').text(`${getLocalizedText(entry.role, locale)} · ${entry.company}`);
     document.fontSize(9).fillColor('#6b7280').text(formatRange(entry.startDate, entry.endDate));
-    document.fontSize(10).fillColor('#1f2937').text(getLocalizedText(entry.summary, locale));
-    entry.highlights.forEach((highlight) => {
+    const experienceSummary = getLocalizedText(entry.summary, locale);
+    if (experienceSummary) {
+      document.fontSize(10).fillColor('#1f2937').text(experienceSummary);
+    }
+    entry.highlights?.forEach((highlight) => {
       document.text(`- ${getLocalizedText(highlight, locale)}`);
     });
     document.moveDown(0.3);
   });
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Koulutus' : 'Education');
-  profile.education.forEach((entry) => {
+  (profile.education || []).forEach((entry) => {
     document.fontSize(11).fillColor('#111827').text(`${getLocalizedText(entry.degree, locale)} · ${getLocalizedText(entry.institution, locale)}`);
     document.fontSize(9).fillColor('#6b7280').text(formatRange(entry.startDate, entry.endDate));
     if (entry.summary) {
@@ -53,7 +59,7 @@ export function streamProfilePdf(response: Response, profile: ProfileDocument, l
   });
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Sertifikaatit' : 'Certificates');
-  profile.certificates.forEach((certificate) => {
+  (profile.certificates || []).forEach((certificate) => {
     document.fontSize(11).fillColor('#111827').text(`${certificate.name} · ${certificate.issuer}`);
     document.fontSize(9).fillColor('#6b7280').text(certificate.date);
     if (certificate.url) {
@@ -63,7 +69,7 @@ export function streamProfilePdf(response: Response, profile: ProfileDocument, l
   });
 
   document.fontSize(14).fillColor('#111827').text(locale === 'fi' ? 'Osaaminen' : 'Skills');
-  document.fontSize(10).fillColor('#1f2937').text(profile.skills.join(' • '));
+  document.fontSize(10).fillColor('#1f2937').text((profile.skills || []).join(' • '));
 
   document.end();
 }

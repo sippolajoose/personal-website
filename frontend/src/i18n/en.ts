@@ -40,7 +40,7 @@ export default {
     eyebrow: 'Selected work',
     title: 'Projects',
     intro: 'A selection of things built and the solutions behind them.',
-    empty: 'No projects have been added yet.',
+    empty: 'I entered working life during my second year of university, so personal projects have taken a back seat. Let\'s see when something gets something interesting here.',
     openProject: 'Open project'
   },
   architecture: {
