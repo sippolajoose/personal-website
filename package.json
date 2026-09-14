@@ -9,6 +9,11 @@
   "engines": {
     "node": ">=24"
   },
+  "allowScripts": {
+    "esbuild": true,
+    "@parcel/watcher": true,
+    "unrs-resolver": true
+  },
   "scripts": {
     "dev:backend": "npm run dev --workspace=@site/backend",
     "dev:frontend": "npm run dev --workspace=@site/frontend",
