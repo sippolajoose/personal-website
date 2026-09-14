@@ -16,11 +16,13 @@ interface RectangleLike {
 
 interface Obstacle extends RectangleLike {
   type: ObstacleShape;
+  rotation: number;
 }
 
 interface CourseFeature extends RectangleLike {
   type: FeatureType;
   shape: FeatureShape;
+  rotation: number;
   direction?: 1 | -1;
 }
 
@@ -45,6 +47,30 @@ const featureShapes: FeatureShape[] = ['triangle', 'square', 'circle'];
 
 function randomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomObstacleRotation(type: ObstacleShape) {
+  return type === 'circle' ? 0 : randomInteger(-35, 35);
+}
+
+function rotatePoint(point: { x: number; y: number }, center: { x: number; y: number }, angle: number) {
+  const radians = (angle * Math.PI) / 180;
+  const offsetX = point.x - center.x;
+  const offsetY = point.y - center.y;
+
+  return {
+    x: center.x + offsetX * Math.cos(radians) - offsetY * Math.sin(radians),
+    y: center.y + offsetX * Math.sin(radians) + offsetY * Math.cos(radians)
+  };
+}
+
+function rotateVector(vector: { x: number; y: number }, angle: number) {
+  const radians = (angle * Math.PI) / 180;
+
+  return {
+    x: vector.x * Math.cos(radians) - vector.y * Math.sin(radians),
+    y: vector.x * Math.sin(radians) + vector.y * Math.cos(radians)
+  };
 }
 
 function pointToGrid(point: { x: number; y: number }) {
@@ -135,6 +161,7 @@ function createRandomObstacle(obstacleCount = 3) {
 
     return {
       type: 'circle' as const,
+      rotation: 0,
       x: randomInteger(160, playBounds.maxX - size - 120),
       y: randomInteger(playBounds.minY + 10, playBounds.maxY - size - 10),
       width: size,
@@ -148,6 +175,7 @@ function createRandomObstacle(obstacleCount = 3) {
 
     return {
       type: 'triangle' as const,
+      rotation: randomObstacleRotation('triangle'),
       x: randomInteger(160, playBounds.maxX - width - 120),
       y: randomInteger(playBounds.minY + 10, playBounds.maxY - height - 10),
       width,
@@ -161,8 +189,32 @@ function createRandomObstacle(obstacleCount = 3) {
 
   return {
     type: 'bar' as const,
+    rotation: randomObstacleRotation('bar'),
     x: randomInteger(160, playBounds.maxX - width - 120),
     y: randomInteger(playBounds.minY + 10, playBounds.maxY - height - 10),
+    width,
+    height
+  };
+}
+
+function createEdgeBarrier(edge: 'top' | 'bottom'): Obstacle {
+  const shapeRoll = Math.random();
+  const size = randomInteger(48, 88);
+  const width = shapeRoll < 0.35 ? size : shapeRoll < 0.65 ? randomInteger(120, 220) : randomInteger(120, 190);
+  const height = shapeRoll < 0.35 ? size : shapeRoll < 0.65 ? randomInteger(24, 36) : randomInteger(70, 130);
+  const type = shapeRoll < 0.35 ? 'circle' : shapeRoll < 0.65 ? 'bar' : 'triangle';
+  const rotation = randomObstacleRotation(type);
+  const radians = (rotation * Math.PI) / 180;
+  const rotatedHeight = Math.abs(width * Math.sin(radians)) + Math.abs(height * Math.cos(radians));
+  const y = type === 'circle'
+    ? edge === 'top' ? 24 : courseHeight - 24 - size
+    : edge === 'top' ? 24 + rotatedHeight / 2 - height / 2 : courseHeight - 24 - rotatedHeight / 2 - height / 2;
+
+  return {
+    type,
+    rotation,
+    x: randomInteger(220, playBounds.maxX - width - 160),
+    y,
     width,
     height
   };
@@ -177,6 +229,7 @@ function createRandomFeature(type: FeatureType): CourseFeature {
   return {
     type,
     shape,
+    rotation: randomInteger(-35, 35),
     ...(type === 'booster' ? { direction: Math.random() > 0.5 ? 1 : -1 } : {}),
     x: randomInteger(180, playBounds.maxX - width - 100),
     y: randomInteger(playBounds.minY + 20, playBounds.maxY - height - 20),
@@ -236,16 +289,30 @@ function generateHole(settings: CourseSettings): Hole {
     const start = { x: randomInteger(70, 150), y: randomInteger(80, 420) };
     const target = { x: randomInteger(650, 730), y: randomInteger(80, 420) };
     const obstacles: Obstacle[] = [];
+    const startBuffer = { x: start.x - 45, y: start.y - 45, width: 90, height: 90 };
+    const targetBuffer = { x: target.x - 45, y: target.y - 45, width: 90, height: 90 };
+
+    const canPlaceObstacle = (obstacle: Obstacle) => {
+      return (
+        !overlaps(obstacle, startBuffer, 0) &&
+        !overlaps(obstacle, targetBuffer, 0) &&
+        !obstacles.some((existing) => overlaps(obstacle, existing, 24))
+      );
+    };
+
+    if (settings.obstacleCount >= 2 && Math.random() < 0.72) {
+      const topBarrier = createEdgeBarrier('top');
+      const bottomBarrier = createEdgeBarrier('bottom');
+
+      if (canPlaceObstacle(topBarrier) && canPlaceObstacle(bottomBarrier)) {
+        obstacles.push(topBarrier, bottomBarrier);
+      }
+    }
 
     for (let obstacleAttempt = 0; obstacleAttempt < settings.obstacleCount * 30 && obstacles.length < settings.obstacleCount; obstacleAttempt += 1) {
       const obstacle = createRandomObstacle(settings.obstacleCount);
-      const startBuffer = { x: start.x - 45, y: start.y - 45, width: 90, height: 90 };
-      const targetBuffer = { x: target.x - 45, y: target.y - 45, width: 90, height: 90 };
-      const nearStart = overlaps(obstacle, startBuffer, 0);
-      const nearTarget = overlaps(obstacle, targetBuffer, 0);
-      const touchesOtherObstacle = obstacles.some((existing) => overlaps(obstacle, existing, 24));
 
-      if (!nearStart && !nearTarget && !touchesOtherObstacle) {
+      if (canPlaceObstacle(obstacle)) {
         obstacles.push(obstacle);
       }
     }
@@ -260,18 +327,18 @@ function generateHole(settings: CourseSettings): Hole {
   }
 
   const fallbackFeatures: CourseFeature[] = [
-    { type: 'booster', shape: 'square', direction: 1, x: 210, y: 220, width: 92, height: 92 },
-    { type: 'ramp', shape: 'triangle', x: 470, y: 220, width: 78, height: 58 },
-    { type: 'booster', shape: 'circle', direction: -1, x: 590, y: 90, width: 84, height: 84 },
-    { type: 'ramp', shape: 'square', x: 460, y: 350, width: 82, height: 82 },
-    { type: 'booster', shape: 'triangle', direction: 1, x: 190, y: 350, width: 96, height: 58 },
-    { type: 'ramp', shape: 'circle', x: 590, y: 350, width: 84, height: 84 }
+    { type: 'booster', shape: 'square', rotation: 0, direction: 1, x: 210, y: 220, width: 92, height: 92 },
+    { type: 'ramp', shape: 'triangle', rotation: 0, x: 470, y: 220, width: 78, height: 58 },
+    { type: 'booster', shape: 'circle', rotation: 0, direction: -1, x: 590, y: 90, width: 84, height: 84 },
+    { type: 'ramp', shape: 'square', rotation: 0, x: 460, y: 350, width: 82, height: 82 },
+    { type: 'booster', shape: 'triangle', rotation: 0, direction: 1, x: 190, y: 350, width: 96, height: 58 },
+    { type: 'ramp', shape: 'circle', rotation: 0, x: 590, y: 350, width: 84, height: 84 }
   ];
 
   return {
     start: { x: 90, y: 250 },
     target: { x: 710, y: 250 },
-    obstacles: [{ type: 'bar', x: 350, y: 90, width: 28, height: 150 }],
+    obstacles: [{ type: 'bar', rotation: 0, x: 350, y: 90, width: 28, height: 150 }],
     features: fallbackFeatures.sort(() => Math.random() - 0.5).slice(0, settings.bonusCount)
   };
 }
@@ -299,6 +366,7 @@ let rampCooldown = 0;
 const jumpOffset = computed(() => (jumpTime.value > 0 ? Math.sin((jumpTime.value / 850) * Math.PI) * 28 : 0));
 const ballScale = computed(() => 1 + (jumpOffset.value / 28) * 0.28);
 const renderedBallRadius = computed(() => ballRadius * ballScale.value);
+const renderedBallY = computed(() => Math.max(ballRadius + 24, Math.min(courseHeight - ballRadius - 24, ball.value.y - jumpOffset.value)));
 const aimGuideEnd = computed(() => {
   const pullX = aimPoint.value.x - ball.value.x;
   const pullY = aimPoint.value.y - ball.value.y;
@@ -370,12 +438,38 @@ function releaseAim(event: PointerEvent) {
   animationFrame = requestAnimationFrame(animate);
 }
 
+function keepBallInsideCourse() {
+  const minX = ballRadius + 24;
+  const maxX = courseWidth - ballRadius - 24;
+  const minY = ballRadius + 24;
+  const maxY = courseHeight - ballRadius - 24;
+
+  if (ball.value.x < minX) {
+    ball.value.x = minX;
+    ball.value.velocityX = Math.abs(ball.value.velocityX) * 0.72;
+  } else if (ball.value.x > maxX) {
+    ball.value.x = maxX;
+    ball.value.velocityX = -Math.abs(ball.value.velocityX) * 0.72;
+  }
+
+  if (ball.value.y < minY) {
+    ball.value.y = minY;
+    ball.value.velocityY = Math.abs(ball.value.velocityY) * 0.72;
+  } else if (ball.value.y > maxY) {
+    ball.value.y = maxY;
+    ball.value.velocityY = -Math.abs(ball.value.velocityY) * 0.72;
+  }
+}
+
 function triangleVertices(obstacle: Obstacle) {
-  return [
+  const vertices = [
     { x: obstacle.x, y: obstacle.y + obstacle.height },
     { x: obstacle.x + obstacle.width / 2, y: obstacle.y },
     { x: obstacle.x + obstacle.width, y: obstacle.y + obstacle.height }
   ];
+  const center = { x: obstacle.x + obstacle.width / 2, y: obstacle.y + obstacle.height / 2 };
+
+  return vertices.map((vertex) => rotatePoint(vertex, center, obstacle.rotation));
 }
 
 function closestPointOnSegment(point: { x: number; y: number }, start: { x: number; y: number }, end: { x: number; y: number }) {
@@ -465,34 +559,44 @@ function resolveObstacle(obstacle: Obstacle) {
     return;
   }
 
-  const withinX = ball.value.x > obstacle.x - ballRadius && ball.value.x < obstacle.x + obstacle.width + ballRadius;
-  const withinY = ball.value.y > obstacle.y - ballRadius && ball.value.y < obstacle.y + obstacle.height + ballRadius;
+  const center = { x: obstacle.x + obstacle.width / 2, y: obstacle.y + obstacle.height / 2 };
+  const localPosition = rotatePoint(ball.value, center, -obstacle.rotation);
+  const withinX = localPosition.x > obstacle.x - ballRadius && localPosition.x < obstacle.x + obstacle.width + ballRadius;
+  const withinY = localPosition.y > obstacle.y - ballRadius && localPosition.y < obstacle.y + obstacle.height + ballRadius;
 
   if (!withinX || !withinY) {
     return;
   }
 
   const distances = [
-    { side: 'left', value: Math.abs(ball.value.x - (obstacle.x - ballRadius)) },
-    { side: 'right', value: Math.abs(ball.value.x - (obstacle.x + obstacle.width + ballRadius)) },
-    { side: 'top', value: Math.abs(ball.value.y - (obstacle.y - ballRadius)) },
-    { side: 'bottom', value: Math.abs(ball.value.y - (obstacle.y + obstacle.height + ballRadius)) }
+    { side: 'left', value: Math.abs(localPosition.x - (obstacle.x - ballRadius)) },
+    { side: 'right', value: Math.abs(localPosition.x - (obstacle.x + obstacle.width + ballRadius)) },
+    { side: 'top', value: Math.abs(localPosition.y - (obstacle.y - ballRadius)) },
+    { side: 'bottom', value: Math.abs(localPosition.y - (obstacle.y + obstacle.height + ballRadius)) }
   ];
   const nearest = distances.sort((first, second) => first.value - second.value)[0].side;
+  const localVelocity = rotateVector({ x: ball.value.velocityX, y: ball.value.velocityY }, -obstacle.rotation);
 
   if (nearest === 'left') {
-    ball.value.x = obstacle.x - ballRadius;
-    ball.value.velocityX = -Math.abs(ball.value.velocityX) * 0.7;
+    localPosition.x = obstacle.x - ballRadius;
+    localVelocity.x = -Math.abs(localVelocity.x) * 0.7;
   } else if (nearest === 'right') {
-    ball.value.x = obstacle.x + obstacle.width + ballRadius;
-    ball.value.velocityX = Math.abs(ball.value.velocityX) * 0.7;
+    localPosition.x = obstacle.x + obstacle.width + ballRadius;
+    localVelocity.x = Math.abs(localVelocity.x) * 0.7;
   } else if (nearest === 'top') {
-    ball.value.y = obstacle.y - ballRadius;
-    ball.value.velocityY = -Math.abs(ball.value.velocityY) * 0.7;
+    localPosition.y = obstacle.y - ballRadius;
+    localVelocity.y = -Math.abs(localVelocity.y) * 0.7;
   } else {
-    ball.value.y = obstacle.y + obstacle.height + ballRadius;
-    ball.value.velocityY = Math.abs(ball.value.velocityY) * 0.7;
+    localPosition.y = obstacle.y + obstacle.height + ballRadius;
+    localVelocity.y = Math.abs(localVelocity.y) * 0.7;
   }
+
+  const worldPosition = rotatePoint(localPosition, center, obstacle.rotation);
+  const worldVelocity = rotateVector(localVelocity, obstacle.rotation);
+  ball.value.x = worldPosition.x;
+  ball.value.y = worldPosition.y;
+  ball.value.velocityX = worldVelocity.x;
+  ball.value.velocityY = worldVelocity.y;
 }
 
 function animate(timestamp: number) {
@@ -507,15 +611,7 @@ function animate(timestamp: number) {
   ball.value.velocityX *= Math.pow(0.985, timeScale);
   ball.value.velocityY *= Math.pow(0.985, timeScale);
 
-  if (ball.value.x < ballRadius + 24 || ball.value.x > courseWidth - ballRadius - 24) {
-    ball.value.x = Math.max(ballRadius + 24, Math.min(courseWidth - ballRadius - 24, ball.value.x));
-    ball.value.velocityX *= -0.72;
-  }
-
-  if (ball.value.y < ballRadius + 24 || ball.value.y > courseHeight - ballRadius - 24) {
-    ball.value.y = Math.max(ballRadius + 24, Math.min(courseHeight - ballRadius - 24, ball.value.y));
-    ball.value.velocityY *= -0.72;
-  }
+  keepBallInsideCourse();
 
   const speedBeforeFeature = Math.hypot(ball.value.velocityX, ball.value.velocityY);
   let touchingBooster = false;
@@ -537,8 +633,9 @@ function animate(timestamp: number) {
       const contactTime = isOnFeature ? boosterContactTime + elapsed : Math.min(elapsed, 16.67);
       const contactProgress = Math.min(contactTime / 700, 1);
       const acceleration = (0.029 + contactProgress * 0.092) * timeScale;
-      const nextVelocityX = ball.value.velocityX + direction * acceleration;
-      const nextVelocityY = ball.value.velocityY;
+      const accelerationVector = rotateVector({ x: direction * acceleration, y: 0 }, feature.rotation);
+      const nextVelocityX = ball.value.velocityX + accelerationVector.x;
+      const nextVelocityY = ball.value.velocityY + accelerationVector.y;
       const nextSpeed = Math.hypot(nextVelocityX, nextVelocityY);
       const speedLimit = 14;
 
@@ -561,6 +658,7 @@ function animate(timestamp: number) {
 
   if (jumpTime.value <= 0) {
     currentCourse.value.obstacles.forEach(resolveObstacle);
+    keepBallInsideCourse();
   }
 
   const distanceToHole = Math.hypot(ball.value.x - currentCourse.value.target.x, ball.value.y - currentCourse.value.target.y);
@@ -603,7 +701,7 @@ function resetHole() {
   rampCooldown = 0;
 }
 
-function featureVertices(feature: CourseFeature) {
+function unrotatedFeatureVertices(feature: CourseFeature) {
   if (feature.shape === 'triangle') {
     return [
       { x: feature.x, y: feature.y + feature.height },
@@ -618,6 +716,12 @@ function featureVertices(feature: CourseFeature) {
     { x: feature.x + feature.width, y: feature.y + feature.height },
     { x: feature.x, y: feature.y + feature.height }
   ];
+}
+
+function featureVertices(feature: CourseFeature) {
+  const center = { x: feature.x + feature.width / 2, y: feature.y + feature.height / 2 };
+
+  return unrotatedFeatureVertices(feature).map((vertex) => rotatePoint(vertex, center, feature.rotation));
 }
 
 function isPointInsidePolygon(point: { x: number; y: number }, vertices: { x: number; y: number }[]) {
@@ -684,7 +788,7 @@ function trianglePoints(obstacle: Obstacle) {
 }
 
 function featurePoints(feature: CourseFeature) {
-  return featureVertices(feature).map((vertex) => `${vertex.x},${vertex.y}`).join(' ');
+  return unrotatedFeatureVertices(feature).map((vertex) => `${vertex.x},${vertex.y}`).join(' ');
 }
 
 function rampTexturePath(feature: CourseFeature) {
@@ -782,6 +886,7 @@ onBeforeUnmount(() => {
               :width="obstacle.width"
               :height="obstacle.height"
               rx="8"
+              :transform="`rotate(${obstacle.rotation} ${obstacle.x + obstacle.width / 2} ${obstacle.y + obstacle.height / 2})`"
             />
             <circle
               v-else-if="obstacle.type === 'circle'"
@@ -796,6 +901,7 @@ onBeforeUnmount(() => {
             v-for="feature in currentCourse.features"
             :key="`${feature.type}-${feature.shape}-${feature.x}-${feature.y}`"
             :class="`golf-feature golf-feature-${feature.type}`"
+            :transform="`rotate(${feature.rotation} ${feature.x + feature.width / 2} ${feature.y + feature.height / 2})`"
           >
             <rect
               v-if="feature.shape === 'square'"
@@ -844,7 +950,7 @@ onBeforeUnmount(() => {
             class="golf-ball"
             :class="{ 'golf-ball-aiming': isAiming }"
             :cx="ball.x"
-            :cy="ball.y - jumpOffset"
+            :cy="renderedBallY"
             :r="renderedBallRadius"
             :aria-label="t('playground.ballAria')"
             @pointerdown="startAim"
