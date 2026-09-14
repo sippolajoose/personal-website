@@ -24,7 +24,8 @@ export default {
     certificates: 'Certificates',
     educationLabel: 'Education',
     certificate: 'Certificate',
-    loading: 'Loading profile…'
+    loading: 'Loading profile…',
+    slowLoadingNotice: 'The backend is running on a free tier and may have gone to sleep due to inactivity. The first request after that can take a little longer.'
   },
   cv: {
     eyebrow: 'CV',

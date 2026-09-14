@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { NAlert, NButton, NCard, NSpin, NSpace, NTag } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { downloadResumePdf } from '../services/api';
@@ -8,11 +8,30 @@ import { getLocalizedText } from '../utils/localizedText';
 
 const profileStore = useProfileStore();
 const exporting = ref(false);
+const slowLoadingNotice = ref(false);
 const { locale, t } = useI18n();
 const localized = (value: Parameters<typeof getLocalizedText>[0]) => getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
+let slowLoadingTimer: ReturnType<typeof setTimeout> | undefined;
 
-onMounted(async () => {
-  await profileStore.loadProfile();
+onMounted(() => {
+  slowLoadingTimer = setTimeout(() => {
+    if (profileStore.loading) {
+      slowLoadingNotice.value = true;
+    }
+  }, 2000);
+
+  void profileStore.loadProfile().finally(() => {
+    if (slowLoadingTimer) {
+      clearTimeout(slowLoadingTimer);
+    }
+    slowLoadingNotice.value = false;
+  });
+});
+
+onBeforeUnmount(() => {
+  if (slowLoadingTimer) {
+    clearTimeout(slowLoadingTimer);
+  }
 });
 
 async function handleExport() {
@@ -29,7 +48,10 @@ async function handleExport() {
 <template>
   <section class="hero">
     <n-spin :show="profileStore.loading">
-      <template #description>{{ t('home.loading') }}</template>
+      <template #description>
+        <span>{{ t('home.loading') }}</span>
+        <p v-if="slowLoadingNotice" class="loading-notice">{{ t('home.slowLoadingNotice') }}</p>
+      </template>
 
       <n-alert v-if="profileStore.error" type="error" :show-icon="true" :title="profileStore.error" />
 

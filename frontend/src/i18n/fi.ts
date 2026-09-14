@@ -24,7 +24,8 @@ export default {
     certificates: 'Sertifikaatit',
     educationLabel: 'Koulutus',
     certificate: 'Sertifikaatti',
-    loading: 'Ladataan profiilia…'
+    loading: 'Ladataan profiilia…',
+    slowLoadingNotice: 'Taustapalvelu toimii maksuttomalla tasolla ja on voinut siirtyä lepotilaan käyttämättömyyden vuoksi. Ensimmäinen pyyntö sen jälkeen voi kestää hetken.'
   },
   cv: {
     eyebrow: 'CV',
