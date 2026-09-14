@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { NAlert, NSpin, NTag } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '../stores/profile';
+import { getLocalizedText } from '../utils/localizedText';
 
 const profileStore = useProfileStore();
-const { t } = useI18n();
+const { locale, t } = useI18n();
+const currentLocale = computed(() => (locale.value === 'fi' ? 'fi' : 'en'));
 
 onMounted(async () => {
   await profileStore.loadProfile();
@@ -29,7 +31,7 @@ onMounted(async () => {
             <a v-if="project.url" class="project-link" :href="project.url" target="_blank" rel="noreferrer" :aria-label="t('projects.openProject')">↗</a>
           </div>
           <h2>{{ project.name }}</h2>
-          <p>{{ project.summary }}</p>
+          <p>{{ getLocalizedText(project.summary, currentLocale) }}</p>
           <div class="project-tags">
             <n-tag v-for="technology in project.technologies" :key="technology" size="small" :bordered="false">{{ technology }}</n-tag>
           </div>

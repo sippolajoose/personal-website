@@ -43,7 +43,7 @@ export interface CertificateEntry {
 
 export interface ProjectEntry {
   name: string;
-  summary: string;
+  summary: LocalizedTextValue;
   url?: string;
   technologies: string[];
 }

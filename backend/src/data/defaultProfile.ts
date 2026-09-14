@@ -71,7 +71,10 @@ export const defaultProfile: ProfileDocument = {
   projects: [
     {
       name: 'Personal website',
-      summary: 'A portfolio site with CV export and structured profile content.',
+      summary: {
+        fi: 'Portfolio-sivusto, jossa on CV:n PDF-vienti ja rakenteistettu profiilisisältö.',
+        en: 'A portfolio site with CV export and structured profile content.'
+      },
       url: 'https://example.com',
       technologies: ['Vue', 'Express', 'MongoDB']
     }

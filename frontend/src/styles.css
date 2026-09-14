@@ -596,6 +596,11 @@ html[data-theme='dark'] .meta {
   font-size: 1.4rem;
 }
 
+.project-card h2 {
+  min-height: calc(1.4rem * 1.2 * 3);
+  line-height: 1.2;
+}
+
 .project-card p,
 .architecture-card p {
   margin: 0;

@@ -68,7 +68,10 @@ const profileExample: ProfileDocument = {
   projects: [
     {
       name: 'Personal website',
-      summary: 'A portfolio site with CV export and structured profile content.',
+      summary: {
+        fi: 'Portfolio-sivusto, jossa on CV:n PDF-vienti ja rakenteistettu profiilisisältö.',
+        en: 'A portfolio site with CV export and structured profile content.'
+      },
       url: 'https://example.com',
       technologies: ['Vue', 'Express', 'MongoDB']
     }
@@ -269,7 +272,12 @@ export const openApiDocument = {
         type: 'object',
         properties: {
           name: { type: 'string' },
-          summary: { type: 'string' },
+          summary: {
+            oneOf: [
+              { type: 'string' },
+              { $ref: '#/components/schemas/LocalizedText' }
+            ]
+          },
           url: { type: 'string', format: 'uri' },
           technologies: {
             type: 'array',
