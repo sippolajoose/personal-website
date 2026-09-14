@@ -42,6 +42,7 @@ export default {
     title: 'Projektit',
     intro: 'Valikoima rakennettuja asioita ja niistä opittuja ratkaisuja.',
     empty: 'Siirryin työelämään jo toisena opiskeluvuotenani, joten henkilökohtaiset projektit ovat jääneet taka-alalle. Katsotaan, milloin tänne saadaan jotain mielenkiintoista.',
+    disclaimer: 'Siirryin työelämään jo toisena opiskeluvuotenani, joten henkilökohtaiset projektit ovat jääneet hieman taka-alalle. Tässä kuitenkin muutama esimerkki projekteista, joita olen tehnyt työn ulkopuolella.',
     openProject: 'Avaa projekti'
   },
   architecture: {

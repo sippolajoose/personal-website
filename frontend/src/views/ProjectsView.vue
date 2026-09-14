@@ -20,6 +20,7 @@ onMounted(async () => {
       <p class="eyebrow">{{ t('projects.eyebrow') }}</p>
       <h1>{{ t('projects.title') }}</h1>
       <p class="lede">{{ t('projects.intro') }}</p>
+      <p class="project-disclaimer">{{ t('projects.disclaimer') }}</p>
     </header>
 
     <n-spin :show="profileStore.loading">

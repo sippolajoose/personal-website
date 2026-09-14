@@ -42,6 +42,7 @@ export default {
     title: 'Projects',
     intro: 'A selection of things built and the solutions behind them.',
     empty: 'I entered working life during my second year of university, so personal projects have taken a back seat. Let\'s see when something gets something interesting here.',
+    disclaimer: 'I entered working life during my second year of university, so personal projects have taken a bit of a back seat. Here are a few highlights from projects I have worked on outside of work.',
     openProject: 'Open project'
   },
   architecture: {
