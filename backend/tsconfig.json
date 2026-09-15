@@ -6,7 +6,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "noEmit": false,
-    "types": ["node", "jest"]
+    "types": ["node"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"]

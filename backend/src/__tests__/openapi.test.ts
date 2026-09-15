@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { describe, expect, it } from 'vitest';
 import { createApp } from '../app';
 
 describe('GET /api/openapi.json', () => {

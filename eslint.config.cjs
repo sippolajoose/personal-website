@@ -58,8 +58,7 @@ module.exports = [
         sourceType: 'module'
       },
       globals: {
-        ...globals.node,
-        ...globals.jest
+        ...globals.node
       }
     },
     plugins: {
