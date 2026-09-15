@@ -67,7 +67,6 @@ async function handleExport() {
               <n-button type="primary" size="large" :loading="exporting" @click="handleExport">
                 {{ t('home.exportCv') }}
               </n-button>
-              <n-button quaternary size="large" tag="a" :href="`mailto:${profileStore.profile.email}`">{{ t('home.contact') }}</n-button>
             </n-space>
           </div>
 
