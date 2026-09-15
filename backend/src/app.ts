@@ -7,12 +7,14 @@ import { openApiRouter } from './routes/openapi';
 import { profileRouter } from './routes/profile';
 import { resumeRouter } from './routes/resume';
 
+const allowedOrigins = env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean);
+
 export function createApp() {
   const app = express();
 
   app.use(
     cors({
-      origin: env.CORS_ORIGIN
+      origin: allowedOrigins
     })
   );
   app.use(express.json());
