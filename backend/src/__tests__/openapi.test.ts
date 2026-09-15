@@ -9,9 +9,15 @@ describe('GET /api/openapi.json', () => {
     expect(response.status).toBe(200);
     expect(response.body.openapi).toBe('3.1.0');
     expect(response.body.paths).toHaveProperty('/profile');
-    expect(response.body.paths).toHaveProperty('/resume/pdf');
+    expect(response.body.paths).not.toHaveProperty('/resume/pdf');
     expect(response.body.components.schemas.ExperienceEntry.properties).toHaveProperty('highlights');
     expect(response.body.components.schemas.ExperienceEntry.properties).toHaveProperty('technologies');
     expect(response.body.components.schemas.EducationEntry.properties).toHaveProperty('summary');
+  });
+
+  it('does not expose the disabled CV export endpoint', async () => {
+    const response = await request(createApp()).get('/api/resume/pdf');
+
+    expect(response.status).toBe(404);
   });
 });

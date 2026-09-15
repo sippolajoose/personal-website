@@ -16,7 +16,6 @@ export default {
   },
   home: {
     eyebrow: 'CV',
-    exportCv: 'Export CV as PDF',
     contact: 'Contact',
     snapshot: 'Snapshot',
     experience: 'Experience',

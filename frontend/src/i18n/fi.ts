@@ -16,7 +16,6 @@ export default {
   },
   home: {
     eyebrow: 'CV',
-    exportCv: 'Vie CV PDF:nä',
     contact: 'Ota yhteyttä',
     snapshot: 'Pikakuvaus',
     experience: 'Kokemus',

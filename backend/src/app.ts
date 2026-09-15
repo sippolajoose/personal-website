@@ -5,7 +5,6 @@ import { errorHandler } from './middleware/errorHandler';
 import { healthRouter } from './routes/health';
 import { openApiRouter } from './routes/openapi';
 import { profileRouter } from './routes/profile';
-import { resumeRouter } from './routes/resume';
 
 const allowedOrigins = env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean);
 
@@ -22,7 +21,6 @@ export function createApp() {
   app.use('/api', healthRouter);
   app.use('/api', openApiRouter);
   app.use('/api', profileRouter);
-  app.use('/api', resumeRouter);
 
   app.use(errorHandler);
 

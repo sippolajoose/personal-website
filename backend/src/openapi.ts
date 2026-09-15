@@ -69,8 +69,8 @@ const profileExample: ProfileDocument = {
     {
       name: 'Personal website',
       summary: {
-        fi: 'Portfolio-sivusto, jossa on CV:n PDF-vienti ja rakenteistettu profiilisisältö.',
-        en: 'A portfolio site with CV export and structured profile content.'
+        fi: 'Portfolio-sivusto, jossa on rakenteistettu profiilisisältö.',
+        en: 'A portfolio site with structured profile content.'
       },
       url: 'https://example.com',
       technologies: ['Vue', 'Express', 'MongoDB']
@@ -83,7 +83,7 @@ export const openApiDocument = {
   info: {
     title: 'Personal Website API',
     version: '1.0.0',
-    description: 'Public API for the personal website, profile content, and downloadable CV.'
+    description: 'Public API for the personal website and profile content.'
   },
   servers: [
     {
@@ -93,8 +93,7 @@ export const openApiDocument = {
   ],
   tags: [
     { name: 'Health', description: 'Service health checks' },
-    { name: 'Profile', description: 'Profile, experience, education, and certificates' },
-    { name: 'Resume', description: 'Downloadable CV export' }
+    { name: 'Profile', description: 'Profile, experience, education, and certificates' }
   ],
   paths: {
     '/health': {
@@ -138,35 +137,6 @@ export const openApiDocument = {
           },
           '500': {
             description: 'Profile data is missing or cannot be loaded'
-          }
-        }
-      }
-    },
-    '/resume/pdf': {
-      get: {
-        tags: ['Resume'],
-        summary: 'Download the resume as a PDF',
-        operationId: 'downloadResumePdf',
-        parameters: [
-          {
-            name: 'locale',
-            in: 'query',
-            required: false,
-            schema: { type: 'string', enum: ['fi', 'en'], default: 'en' },
-            description: 'Language used for localized resume content'
-          }
-        ],
-        responses: {
-          '200': {
-            description: 'PDF resume file',
-            content: {
-              'application/pdf': {
-                schema: {
-                  type: 'string',
-                  format: 'binary'
-                }
-              }
-            }
           }
         }
       }

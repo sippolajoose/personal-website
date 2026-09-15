@@ -16,14 +16,12 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.18.0",
-    "pdfkit": "^0.16.0",
     "zod": "^3.25.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^24.0.0",
-    "@types/pdfkit": "^0.13.0",
     "@types/supertest": "^6.0.3",
     "supertest": "^7.1.1",
     "tsx": "^4.20.0",

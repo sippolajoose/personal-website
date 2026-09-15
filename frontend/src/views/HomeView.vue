@@ -2,12 +2,10 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { NAlert, NButton, NCard, NSpin, NSpace, NTag } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
-import { downloadResumePdf } from '../services/api';
 import { useProfileStore } from '../stores/profile';
 import { getLocalizedText } from '../utils/localizedText';
 
 const profileStore = useProfileStore();
-const exporting = ref(false);
 const slowLoadingNotice = ref(false);
 const { locale, t } = useI18n();
 const localized = (value: Parameters<typeof getLocalizedText>[0]) => getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
@@ -34,15 +32,6 @@ onBeforeUnmount(() => {
   }
 });
 
-async function handleExport() {
-  exporting.value = true;
-
-  try {
-    await downloadResumePdf(locale.value === 'fi' ? 'fi' : 'en');
-  } finally {
-    exporting.value = false;
-  }
-}
 </script>
 
 <template>
@@ -63,11 +52,6 @@ async function handleExport() {
             <p class="lede">{{ profileStore.profile.headline }}</p>
             <p class="lede">{{ localized(profileStore.profile.summary) }}</p>
 
-            <n-space class="actions" style="margin-top: 24px" :wrap="true" align="center">
-              <n-button type="primary" size="large" :loading="exporting" @click="handleExport">
-                {{ t('home.exportCv') }}
-              </n-button>
-            </n-space>
           </div>
 
           <n-card size="large" :title="t('home.snapshot')" embedded>
