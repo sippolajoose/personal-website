@@ -26,6 +26,19 @@ export default {
     loading: 'Loading profile…',
     slowLoadingNotice: 'The backend is running on a free tier and may have gone to sleep due to inactivity. The first request after that can take a little longer.'
   },
+  feedback: {
+    eyebrow: 'Leave a note',
+    title: 'What did you think?',
+    intro: 'A short message is welcome. Submissions are reviewed before anything can appear publicly.',
+    messageLabel: 'Message',
+    messagePlaceholder: "What's on your mind?",
+    nameLabel: 'Name or nickname (optional)',
+    namePlaceholder: 'How should I sign it?',
+    consent: 'You may publish this message on the site.',
+    submit: 'Send feedback',
+    success: 'Thanks. Your message is waiting for review.',
+    error: 'The message could not be sent. Please try again.'
+  },
   cv: {
     eyebrow: 'CV',
     title: 'Curriculum vitae',

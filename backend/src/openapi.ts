@@ -93,7 +93,8 @@ export const openApiDocument = {
   ],
   tags: [
     { name: 'Health', description: 'Service health checks' },
-    { name: 'Profile', description: 'Profile, experience, education, and certificates' }
+    { name: 'Profile', description: 'Profile, experience, education, and certificates' },
+    { name: 'Feedback', description: 'Moderated visitor feedback submissions' }
   ],
   paths: {
     '/health': {
@@ -140,10 +141,58 @@ export const openApiDocument = {
           }
         }
       }
+    },
+    '/feedback': {
+      post: {
+        tags: ['Feedback'],
+        summary: 'Submit visitor feedback for moderation',
+        operationId: 'submitFeedback',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/schemas/FeedbackSubmission' }
+            }
+          }
+        },
+        responses: {
+          '201': {
+            description: 'Feedback was accepted for moderation',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    status: { type: 'string', enum: ['pending'] }
+                  },
+                  required: ['status']
+                }
+              }
+            }
+          },
+          '400': {
+            description: 'Feedback payload is invalid'
+          },
+          '500': {
+            description: 'Feedback could not be stored'
+          }
+        }
+      }
     }
   },
   components: {
     schemas: {
+      FeedbackSubmission: {
+        type: 'object',
+        properties: {
+          message: { type: 'string', minLength: 1, maxLength: 1000 },
+          displayName: { type: 'string', maxLength: 80 },
+          locale: { type: 'string', enum: ['fi', 'en'] },
+          publishConsent: { type: 'boolean' }
+        },
+        required: ['message', 'locale', 'publishConsent'],
+        additionalProperties: false
+      },
       ProfileLink: {
         type: 'object',
         properties: {

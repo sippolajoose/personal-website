@@ -26,6 +26,19 @@ export default {
     loading: 'Ladataan profiilia…',
     slowLoadingNotice: 'Taustapalvelu toimii maksuttomalla tasolla ja on voinut siirtyä lepotilaan käyttämättömyyden vuoksi. Ensimmäinen pyyntö sen jälkeen voi kestää hetken.'
   },
+  feedback: {
+    eyebrow: 'Jätä viesti',
+    title: 'Mitä pidit?',
+    intro: 'Lyhyt viesti on tervetullut. Palaute tarkistetaan ennen kuin sitä voidaan julkaista.',
+    messageLabel: 'Viesti',
+    messagePlaceholder: 'Mitä mielessä?',
+    nameLabel: 'Nimi tai nimimerkki (valinnainen)',
+    namePlaceholder: 'Millä nimellä allekirjoitan viestin?',
+    consent: 'Palautteeni voidaan julkaista sivustolla.',
+    submit: 'Lähetä palaute',
+    success: 'Kiitos. Viestisi odottaa tarkistusta.',
+    error: 'Viestin lähettäminen epäonnistui. Yritä uudelleen.'
+  },
   cv: {
     eyebrow: 'CV',
     title: 'Ansioluettelo',

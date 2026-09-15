@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import { env } from './config/env';
 import { errorHandler } from './middleware/errorHandler';
+import { feedbackRouter } from './routes/feedback';
 import { healthRouter } from './routes/health';
 import { openApiRouter } from './routes/openapi';
 import { profileRouter } from './routes/profile';
@@ -21,6 +22,7 @@ export function createApp() {
   app.use('/api', healthRouter);
   app.use('/api', openApiRouter);
   app.use('/api', profileRouter);
+  app.use('/api', feedbackRouter);
 
   app.use(errorHandler);
 

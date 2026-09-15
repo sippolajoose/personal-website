@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import { NAlert, NButton, NCard, NSpin, NSpace, NTag } from 'naive-ui';
+import { NAlert, NCard, NSpin, NSpace, NTag } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { useProfileStore } from '../stores/profile';
 import { getLocalizedText } from '../utils/localizedText';
