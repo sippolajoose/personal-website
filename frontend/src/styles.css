@@ -119,6 +119,17 @@ html[data-theme='dark'] .topbar {
   gap: 24px;
 }
 
+.profile-loader--loading {
+  min-height: 180px;
+}
+
+.loading-notice {
+  width: min(100%, 38rem);
+  margin: 8px auto 0;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;

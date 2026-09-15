@@ -47,7 +47,7 @@ async function handleExport() {
 
 <template>
   <section class="hero">
-    <n-spin :show="profileStore.loading">
+    <n-spin class="profile-loader" :class="{ 'profile-loader--loading': profileStore.loading }" :show="profileStore.loading">
       <template #description>
         <span>{{ t('home.loading') }}</span>
         <p v-if="slowLoadingNotice" class="loading-notice">{{ t('home.slowLoadingNotice') }}</p>
