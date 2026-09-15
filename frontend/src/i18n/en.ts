@@ -64,6 +64,7 @@ export default {
     stackEyebrow: 'Technology choices',
     stackTitle: 'The tools behind the site',
     stackIntro: 'The stack is intentionally small: each tool has a clear role in building, serving, storing, or validating the site.',
+    apiDocs: 'Open interactive API documentation',
     frontendStack: 'Frontend',
     frontendStackText: 'Vue handles the interface, while Vite, routing, state, localization, and the component library keep the client-side application focused.',
     backendStack: 'Backend and API',

@@ -31,6 +31,7 @@ const { t } = useI18n();
         <p class="eyebrow">{{ t('architecture.stackEyebrow') }}</p>
         <h2>{{ t('architecture.stackTitle') }}</h2>
         <p>{{ t('architecture.stackIntro') }}</p>
+        <router-link class="button-secondary" to="/api-guide">{{ t('architecture.apiDocs') }}</router-link>
       </header>
 
       <div class="architecture-stack-grid">
@@ -69,7 +70,7 @@ const { t } = useI18n();
           <p>{{ t('architecture.qualityStackText') }}</p>
           <div class="architecture-tags">
             <span>Docker Compose</span>
-            <span>Jest</span>
+            <span>Vitest</span>
             <span>Supertest</span>
             <span>ESLint</span>
             <span>Prettier</span>

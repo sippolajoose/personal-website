@@ -64,6 +64,7 @@ export default {
     stackEyebrow: 'Teknologiavalinnat',
     stackTitle: 'Sivuston taustalla olevat työkalut',
     stackIntro: 'Pino on tarkoituksella pieni: jokaisella työkalulla on selkeä rooli sivuston rakentamisessa, tarjoamisessa, tallentamisessa tai testaamisessa.',
+    apiDocs: 'Avaa interaktiivinen API-dokumentaatio',
     frontendStack: 'Frontend',
     frontendStackText: 'Vue vastaa käyttöliittymästä, ja Vite, reititys, tila, kieliversiot sekä komponenttikirjasto pitävät selainpuolen sovelluksen selkeänä.',
     backendStack: 'Backend ja API',
