@@ -24,6 +24,19 @@ export interface FeedbackSubmission {
   publishConsent: boolean;
 }
 
+export interface FeedbackItem {
+  message: string;
+  displayName?: string;
+  locale: Locale;
+  featured: boolean;
+  createdAt: string;
+}
+
+export async function getPublishedFeedback(): Promise<FeedbackItem[]> {
+  const result = await readJson<{ feedback: FeedbackItem[] }>('/feedback');
+  return result.feedback;
+}
+
 export async function sendFeedback(feedback: FeedbackSubmission): Promise<void> {
   const response = await fetch(`${baseUrl}/feedback`, {
     method: 'POST',

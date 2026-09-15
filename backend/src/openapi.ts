@@ -143,6 +143,33 @@ export const openApiDocument = {
       }
     },
     '/feedback': {
+      get: {
+        tags: ['Feedback'],
+        summary: 'List published visitor feedback',
+        operationId: 'listPublishedFeedback',
+        responses: {
+          '200': {
+            description: 'Approved feedback with publication consent',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    feedback: {
+                      type: 'array',
+                      items: { $ref: '#/components/schemas/PublishedFeedback' }
+                    }
+                  },
+                  required: ['feedback']
+                }
+              }
+            }
+          },
+          '500': {
+            description: 'Feedback could not be loaded'
+          }
+        }
+      },
       post: {
         tags: ['Feedback'],
         summary: 'Submit visitor feedback for moderation',
@@ -192,6 +219,17 @@ export const openApiDocument = {
         },
         required: ['message', 'locale', 'publishConsent'],
         additionalProperties: false
+      },
+      PublishedFeedback: {
+        type: 'object',
+        properties: {
+          message: { type: 'string' },
+          displayName: { type: 'string' },
+          locale: { type: 'string', enum: ['fi', 'en'] },
+          featured: { type: 'boolean' },
+          createdAt: { type: 'string', format: 'date-time' }
+        },
+        required: ['message', 'locale', 'featured', 'createdAt']
       },
       ProfileLink: {
         type: 'object',

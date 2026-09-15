@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createFeedbackDocument } from '../repositories/feedbackRepository';
+import { createFeedbackDocument, getPublishedFeedbackDocuments } from '../repositories/feedbackRepository';
 
 export const feedbackInputSchema = z
   .object({
@@ -24,4 +24,8 @@ export async function submitFeedback(input: FeedbackInput): Promise<void> {
     featured: false,
     createdAt: new Date()
   });
+}
+
+export async function getPublishedFeedback() {
+  return getPublishedFeedbackDocuments();
 }

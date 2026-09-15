@@ -10,3 +10,11 @@ export interface FeedbackDocument {
   featured: boolean;
   createdAt: Date;
 }
+
+export interface PublishedFeedback {
+  message: string;
+  displayName?: string;
+  locale: FeedbackLocale;
+  featured: boolean;
+  createdAt: Date;
+}

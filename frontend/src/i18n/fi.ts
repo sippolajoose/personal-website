@@ -37,7 +37,14 @@ export default {
     consent: 'Palautteeni voidaan julkaista sivustolla.',
     submit: 'Lähetä palaute',
     success: 'Kiitos. Viestisi odottaa tarkistusta.',
-    error: 'Viestin lähettäminen epäonnistui. Yritä uudelleen.'
+    error: 'Viestin lähettäminen epäonnistui. Yritä uudelleen.',
+    scrollerAria: 'Julkaistu palaute',
+    scrollerEyebrow: 'Vierailijoiden viestejä',
+    scrollerTitle: 'Muutama sana matkan varrelta',
+    previous: 'Edellinen palaute',
+    next: 'Seuraava palaute',
+    anonymous: 'Nimetön',
+    empty: 'Ei vielä palautteita :('
   },
   cv: {
     eyebrow: 'CV',

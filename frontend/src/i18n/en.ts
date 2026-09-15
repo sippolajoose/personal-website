@@ -37,7 +37,14 @@ export default {
     consent: 'You may publish this message on the site.',
     submit: 'Send feedback',
     success: 'Thanks. Your message is waiting for review.',
-    error: 'The message could not be sent. Please try again.'
+    error: 'The message could not be sent. Please try again.',
+    scrollerAria: 'Published feedback',
+    scrollerEyebrow: 'Notes from visitors',
+    scrollerTitle: 'A few words left behind',
+    previous: 'Previous feedback',
+    next: 'Next feedback',
+    anonymous: 'Anonymous',
+    empty: 'No feedback yet :('
   },
   cv: {
     eyebrow: 'CV',

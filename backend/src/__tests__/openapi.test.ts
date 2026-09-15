@@ -10,6 +10,7 @@ describe('GET /api/openapi.json', () => {
     expect(response.body.openapi).toBe('3.1.0');
     expect(response.body.paths).toHaveProperty('/profile');
     expect(response.body.paths).toHaveProperty('/feedback');
+    expect(response.body.paths['/feedback']).toHaveProperty('get');
     expect(response.body.paths).not.toHaveProperty('/resume/pdf');
     expect(response.body.components.schemas.ExperienceEntry.properties).toHaveProperty('highlights');
     expect(response.body.components.schemas.ExperienceEntry.properties).toHaveProperty('technologies');

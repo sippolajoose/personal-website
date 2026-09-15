@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { darkTheme, lightTheme, NButton, NConfigProvider } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 import { useTheme } from './composables/theme';
+import FeedbackScroller from './components/FeedbackScroller.vue';
 import { toggleLocale } from './i18n';
 import { sendFeedback } from './services/api';
 
@@ -13,6 +14,7 @@ const feedbackMessage = ref('');
 const feedbackDisplayName = ref('');
 const feedbackPublishConsent = ref(false);
 const feedbackState = ref<'idle' | 'submitting' | 'success' | 'error'>('idle');
+const feedbackRefreshKey = ref(0);
 
 const syncThemeToDom = () => {
   document.documentElement.dataset.theme = themeMode.value;
@@ -49,6 +51,7 @@ async function handleFeedbackSubmit() {
     feedbackDisplayName.value = '';
     feedbackPublishConsent.value = false;
     feedbackState.value = 'success';
+    feedbackRefreshKey.value += 1;
   } catch {
     feedbackState.value = 'error';
   }
@@ -120,6 +123,8 @@ async function handleFeedbackSubmit() {
             <p v-else-if="feedbackState === 'error'" class="feedback-status feedback-status-error" role="alert">{{ t('feedback.error') }}</p>
           </div>
         </form>
+
+        <FeedbackScroller :refresh-key="feedbackRefreshKey" />
       </footer>
     </div>
   </n-config-provider>
