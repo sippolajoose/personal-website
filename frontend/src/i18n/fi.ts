@@ -44,6 +44,7 @@ export default {
     previous: 'Edellinen palaute',
     next: 'Seuraava palaute',
     anonymous: 'Nimetön',
+    loading: 'Ladataan palautteita...',
     empty: 'Ei vielä palautteita :('
   },
   cv: {

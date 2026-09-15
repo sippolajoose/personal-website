@@ -175,6 +175,31 @@ html[data-theme='dark'] .topbar {
   background: var(--bg-alt);
 }
 
+.feedback-loading {
+  display: flex;
+  min-height: 112px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px dashed var(--border);
+  color: var(--muted);
+}
+
+.feedback-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: feedback-spin 700ms linear infinite;
+}
+
+@keyframes feedback-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .feedback-quote p {
   max-width: 70ch;
   margin: 0;

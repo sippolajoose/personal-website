@@ -44,6 +44,7 @@ export default {
     previous: 'Previous feedback',
     next: 'Next feedback',
     anonymous: 'Anonymous',
+    loading: 'Loading feedback...',
     empty: 'No feedback yet :('
   },
   cv: {

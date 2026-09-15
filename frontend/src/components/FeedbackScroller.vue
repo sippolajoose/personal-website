@@ -6,6 +6,7 @@ import { getPublishedFeedback, type FeedbackItem } from '../services/api';
 const { t } = useI18n();
 const props = defineProps<{ refreshKey?: number }>();
 const feedbackItems = ref<FeedbackItem[]>([]);
+const isLoading = ref(true);
 const activeIndex = ref(0);
 let rotationTimer: ReturnType<typeof setInterval> | undefined;
 
@@ -29,6 +30,8 @@ function startRotation() {
 }
 
 async function loadFeedback() {
+  isLoading.value = true;
+
   try {
     feedbackItems.value = await getPublishedFeedback();
     activeIndex.value = 0;
@@ -36,6 +39,8 @@ async function loadFeedback() {
   } catch {
     feedbackItems.value = [];
     clearRotation();
+  } finally {
+    isLoading.value = false;
   }
 }
 
@@ -61,7 +66,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="feedback-scroller" :aria-label="t('feedback.scrollerAria')" @mouseenter="clearRotation" @mouseleave="startRotation">
+  <section class="feedback-scroller" :aria-busy="isLoading" :aria-label="t('feedback.scrollerAria')" @mouseenter="clearRotation" @mouseleave="startRotation">
     <div class="feedback-scroller-heading">
       <div>
         <p class="eyebrow">{{ t('feedback.scrollerEyebrow') }}</p>
@@ -73,7 +78,11 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <blockquote v-if="activeFeedback" class="feedback-quote">
+    <div v-if="isLoading" class="feedback-loading" role="status">
+      <span class="feedback-spinner" aria-hidden="true" />
+      <span>{{ t('feedback.loading') }}</span>
+    </div>
+    <blockquote v-else-if="activeFeedback" class="feedback-quote">
       <p>“{{ activeFeedback.message }}”</p>
       <footer>— {{ activeFeedback.displayName || t('feedback.anonymous') }}</footer>
     </blockquote>
