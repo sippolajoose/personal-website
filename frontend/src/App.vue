@@ -15,6 +15,20 @@ const feedbackDisplayName = ref('');
 const feedbackPublishConsent = ref(false);
 const feedbackState = ref<'idle' | 'submitting' | 'success' | 'error'>('idle');
 const feedbackRefreshKey = ref(0);
+const isNavHidden = ref(false);
+let lastScrollY = 0;
+
+function handleScroll() {
+  const currentScrollY = Math.max(window.scrollY, 0);
+  const scrollDelta = currentScrollY - lastScrollY;
+
+  if (currentScrollY <= 16) {
+    isNavHidden.value = false;
+  } else if (Math.abs(scrollDelta) >= 8) {
+    isNavHidden.value = scrollDelta > 0;
+    lastScrollY = currentScrollY;
+  }
+}
 
 const syncThemeToDom = () => {
   document.documentElement.dataset.theme = themeMode.value;
@@ -24,11 +38,14 @@ const syncThemeToDom = () => {
 onMounted(() => {
   syncThemeToDom();
   document.documentElement.lang = locale.value;
+  lastScrollY = window.scrollY;
   window.addEventListener('themechange', syncThemeToDom as EventListener);
+  window.addEventListener('scroll', handleScroll, { passive: true });
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('themechange', syncThemeToDom as EventListener);
+  window.removeEventListener('scroll', handleScroll);
 });
 
 async function handleFeedbackSubmit() {
@@ -61,7 +78,7 @@ async function handleFeedbackSubmit() {
 <template>
   <n-config-provider :theme="naiveTheme">
     <div class="shell">
-      <header class="topbar">
+      <header class="topbar" :class="{ 'topbar--hidden': isNavHidden }">
         <router-link class="brand" to="/">{{ t('app.brand') }}</router-link>
 
         <nav class="nav">
@@ -75,8 +92,16 @@ async function handleFeedbackSubmit() {
           <n-button class="language-toggle" quaternary size="small" @click="toggleLocale">
             {{ t('app.language') }}
           </n-button>
-          <n-button class="theme-toggle" quaternary size="small" @click="toggleTheme">
-            {{ themeMode === 'dark' ? t('app.theme.light') : t('app.theme.dark') }}
+          <n-button
+            class="theme-toggle"
+            quaternary
+            size="small"
+            :aria-label="themeMode === 'dark' ? t('app.theme.light') : t('app.theme.dark')"
+            :title="themeMode === 'dark' ? t('app.theme.light') : t('app.theme.dark')"
+            @click="toggleTheme"
+          >
+            <span class="theme-toggle-label">{{ themeMode === 'dark' ? t('app.theme.light') : t('app.theme.dark') }}</span>
+            <span class="theme-toggle-icon" aria-hidden="true">{{ themeMode === 'dark' ? '☀' : '☾' }}</span>
           </n-button>
         </div>
       </header>

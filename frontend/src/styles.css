@@ -457,6 +457,10 @@ html[data-theme='dark'] .button-secondary {
   white-space: nowrap;
 }
 
+.theme-toggle-icon {
+  display: none;
+}
+
 .topbar-actions {
   display: flex;
   align-items: center;
@@ -1156,11 +1160,48 @@ html[data-theme='dark'] .cv-resume {
     border-radius: 20px;
     align-items: flex-start;
     flex-wrap: wrap;
+    transition: transform 220ms ease;
+  }
+
+  .brand,
+  .topbar-actions {
+    order: 1;
+  }
+
+  .topbar-actions {
+    margin-left: auto;
+  }
+
+  .topbar--hidden {
+    transform: translateY(calc(-100% - 24px));
   }
 
   .nav {
-    order: 3;
+    order: 2;
     width: 100%;
+    flex-wrap: nowrap;
+    gap: 18px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
+  }
+
+  .theme-toggle-label {
+    display: none;
+  }
+
+  .theme-toggle-icon {
+    display: inline;
+    font-size: 1.05rem;
+    line-height: 1;
   }
 
   .project-grid,
@@ -1325,13 +1366,13 @@ html[data-theme='dark'] .api-guide-shell .scalar-app {
     grid-template-columns: 1fr;
   }
 
-  .topbar {
-    border-radius: 24px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .api-guide-header {
     flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar {
+    transition: none;
   }
 }
