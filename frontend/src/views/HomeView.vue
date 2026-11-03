@@ -8,7 +8,8 @@ import { getLocalizedText } from '../utils/localizedText';
 const profileStore = useProfileStore();
 const slowLoadingNotice = ref(false);
 const { locale, t } = useI18n();
-const localized = (value: Parameters<typeof getLocalizedText>[0]) => getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
+const localized = (value: Parameters<typeof getLocalizedText>[0]) =>
+  getLocalizedText(value, locale.value === 'fi' ? 'fi' : 'en');
 let slowLoadingTimer: ReturnType<typeof setTimeout> | undefined;
 
 onMounted(() => {
@@ -31,40 +32,80 @@ onBeforeUnmount(() => {
     clearTimeout(slowLoadingTimer);
   }
 });
-
 </script>
 
 <template>
   <section class="hero">
-    <n-spin class="profile-loader" :class="{ 'profile-loader--loading': profileStore.loading }" :show="profileStore.loading">
+    <n-spin
+      class="profile-loader"
+      :class="{ 'profile-loader--loading': profileStore.loading }"
+      :show="profileStore.loading"
+    >
       <template #description>
         <span>{{ t('home.loading') }}</span>
-        <p v-if="slowLoadingNotice" class="loading-notice">{{ t('home.slowLoadingNotice') }}</p>
+        <p v-if="slowLoadingNotice" class="loading-notice">
+          {{ t('home.slowLoadingNotice') }}
+        </p>
       </template>
 
-      <n-alert v-if="profileStore.error" type="error" :show-icon="true" :title="profileStore.error" />
+      <n-alert
+        v-if="profileStore.error"
+        type="error"
+        :show-icon="true"
+        :title="profileStore.error"
+      />
 
       <template v-else-if="profileStore.profile">
         <div class="hero-grid">
-          <div>
+          <div class="hero-copy">
             <p class="eyebrow">{{ t('home.eyebrow') }}</p>
             <h1 class="title">{{ profileStore.profile.name }}</h1>
             <p class="lede">{{ profileStore.profile.headline }}</p>
             <p class="lede">{{ localized(profileStore.profile.summary) }}</p>
-
+            <div class="hero-actions">
+              <router-link class="button-secondary" to="/projects">{{
+                t('app.navigation.projects')
+              }}</router-link>
+            </div>
           </div>
 
-          <n-card size="large" :title="t('home.snapshot')" embedded>
-              <div v-if="profileStore.profile.photoUrl" class="profile-photo-wrap">
-                <img :src="profileStore.profile.photoUrl" :alt="`${profileStore.profile.name} profile photo`" class="profile-photo" />
+          <n-card
+            class="profile-card"
+            size="large"
+            :title="t('home.snapshot')"
+            embedded
+          >
+            <div
+              v-if="profileStore.profile.photoUrl"
+              class="profile-photo-wrap"
+            >
+              <img
+                :src="profileStore.profile.photoUrl"
+                :alt="`${profileStore.profile.name} profile photo`"
+                class="profile-photo"
+              />
             </div>
-              <p class="meta">{{ profileStore.profile.location }}</p>
-            <n-space :wrap="true">
-                <n-tag v-for="skill in profileStore.profile.skills || []" :key="skill" type="success" round>{{ skill }}</n-tag>
+            <p class="meta profile-meta">{{ profileStore.profile.location }}</p>
+            <n-space class="profile-skills" :wrap="true">
+              <n-tag
+                v-for="skill in profileStore.profile.skills || []"
+                :key="skill"
+                type="success"
+                round
+                >{{ skill }}</n-tag
+              >
             </n-space>
-            <n-space style="margin-top: 18px" :wrap="true">
-              <n-tag v-for="link in profileStore.profile.socialLinks || profileStore.profile.links" :key="link.url" type="info" round>
-                <a :href="link.url" target="_blank" rel="noreferrer">{{ link.label }}</a>
+            <n-space class="profile-links" :wrap="true">
+              <n-tag
+                v-for="link in profileStore.profile.socialLinks ||
+                profileStore.profile.links"
+                :key="link.url"
+                type="info"
+                round
+              >
+                <a :href="link.url" target="_blank" rel="noreferrer">{{
+                  link.label
+                }}</a>
               </n-tag>
             </n-space>
           </n-card>
@@ -74,10 +115,22 @@ onBeforeUnmount(() => {
           <div class="home-column">
             <n-card :title="t('home.experience')" embedded>
               <div class="timeline">
-                <article v-for="(entry, index) in profileStore.profile.experience || []" :key="`experience-${index}`" class="timeline-item">
-                  <p class="meta">{{ entry.startDate }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span></p>
-                  <h3 style="margin: 0 0 4px">{{ localized(entry.role) }} · {{ entry.company }}</h3>
-                  <p v-if="localized(entry.summary)" class="subtle">{{ localized(entry.summary) }}</p>
+                <article
+                  v-for="(entry, index) in profileStore.profile.experience ||
+                  []"
+                  :key="`experience-${index}`"
+                  class="timeline-item"
+                >
+                  <p class="meta">
+                    {{ entry.startDate
+                    }}<span v-if="entry.endDate"> - {{ entry.endDate }}</span>
+                  </p>
+                  <h3 class="entry-title">
+                    {{ localized(entry.role) }} · {{ entry.company }}
+                  </h3>
+                  <p v-if="localized(entry.summary)" class="subtle">
+                    {{ localized(entry.summary) }}
+                  </p>
                 </article>
               </div>
             </n-card>
@@ -86,9 +139,13 @@ onBeforeUnmount(() => {
           <div class="home-column">
             <n-card :title="t('home.education')" embedded>
               <div class="list">
-                <article v-for="(entry, index) in profileStore.profile.education || []" :key="`education-${index}`" class="list-item">
+                <article
+                  v-for="(entry, index) in profileStore.profile.education || []"
+                  :key="`education-${index}`"
+                  class="list-item"
+                >
                   <p class="meta">{{ t('home.educationLabel') }}</p>
-                  <h3 style="margin: 0 0 4px">{{ localized(entry.degree) }}</h3>
+                  <h3 class="entry-title">{{ localized(entry.degree) }}</h3>
                   <p class="subtle">{{ localized(entry.institution) }}</p>
                 </article>
               </div>
@@ -96,10 +153,16 @@ onBeforeUnmount(() => {
 
             <n-card :title="t('home.certificates')" embedded>
               <div class="list">
-                <article v-for="certificate in profileStore.profile.certificates || []" :key="`${certificate.issuer}-${certificate.name}`" class="list-item">
+                <article
+                  v-for="certificate in profileStore.profile.certificates || []"
+                  :key="`${certificate.issuer}-${certificate.name}`"
+                  class="list-item"
+                >
                   <p class="meta">{{ t('home.certificate') }}</p>
-                  <h3 style="margin: 0 0 4px">{{ certificate.name }}</h3>
-                  <p class="subtle">{{ certificate.issuer }} · {{ certificate.date }}</p>
+                  <h3 class="entry-title">{{ certificate.name }}</h3>
+                  <p class="subtle">
+                    {{ certificate.issuer }} · {{ certificate.date }}
+                  </p>
                 </article>
               </div>
             </n-card>

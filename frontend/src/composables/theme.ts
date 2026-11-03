@@ -10,7 +10,9 @@ function getSystemTheme(): ThemeMode {
     return 'light';
   }
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
 }
 
 function applyTheme(mode: ThemeMode) {
@@ -23,7 +25,6 @@ function applyTheme(mode: ThemeMode) {
   window.localStorage.setItem(storageKey, mode);
   document.documentElement.dataset.theme = mode;
   document.documentElement.style.colorScheme = mode;
-  window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: mode } }));
 }
 
 export function initializeTheme() {
@@ -32,7 +33,10 @@ export function initializeTheme() {
   }
 
   const storedTheme = window.localStorage.getItem(storageKey);
-  const initialTheme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : getSystemTheme();
+  const initialTheme =
+    storedTheme === 'dark' || storedTheme === 'light'
+      ? storedTheme
+      : getSystemTheme();
 
   applyTheme(initialTheme);
 }
@@ -52,6 +56,6 @@ export function useTheme() {
     isDarkMode,
     setTheme,
     themeMode,
-    toggleTheme,
+    toggleTheme
   };
 }
