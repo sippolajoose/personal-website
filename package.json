@@ -21,7 +21,7 @@
     "build": "npm run build --workspace=@site/backend && npm run build --workspace=@site/frontend",
     "lint": "eslint . --ext .js,.cjs,.ts,.vue",
     "format": "prettier --check .",
-    "test": "npm run test --workspace=@site/backend",
+    "test": "npm run test --workspace=@site/backend && npm run test --workspace=@site/frontend",
     "typecheck": "npm run typecheck --workspace=@site/backend && npm run typecheck --workspace=@site/frontend",
     "seed": "npm run seed --workspace=@site/backend"
   },
