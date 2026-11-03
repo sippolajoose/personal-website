@@ -1,0 +1,57 @@
+backend:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/sippolajoose/personal-website/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 3000
+  mongodb:
+    database: personal_website
+    existingSecret: personal-website-secrets
+    secretKey: mongodb-uri
+  siteOrigin: https://example.com
+  resources:
+    requests:
+      cpu: 50m
+      memory: 96Mi
+    limits:
+      cpu: 500m
+      memory: 384Mi
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/sippolajoose/personal-website/frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30080
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
+
+cloudflared:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: cloudflare/cloudflared
+    tag: latest
+    pullPolicy: Always
+  tunnel:
+    existingSecret: cloudflare-tunnel
+    secretKey: token
+  metricsPort: 2000
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 250m
+      memory: 128Mi
