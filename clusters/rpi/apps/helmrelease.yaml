@@ -26,14 +26,14 @@ spec:
     backend:
       image:
         repository: ghcr.io/sippolajoose/personal-website/backend
-        tag: latest # {"$imagepolicy": "flux-system:backend:tag"}
+        tag: 0.0.4 # {"$imagepolicy": "flux-system:backend:tag"}
       mongodb:
         existingSecret: personal-website-secrets
         secretKey: mongodb-uri
     frontend:
       image:
         repository: ghcr.io/sippolajoose/personal-website/frontend
-        tag: latest # {"$imagepolicy": "flux-system:frontend:tag"}
+        tag: 0.0.4 # {"$imagepolicy": "flux-system:frontend:tag"}
     cloudflared:
       enabled: false
       tunnel:
