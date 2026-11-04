@@ -5,8 +5,7 @@ export default {
       label: 'Main navigation',
       home: 'Home',
       projects: 'Projects',
-      architecture: 'Architecture',
-      apiGuide: 'API Guide',
+      thisApp: 'This app',
       playground: 'Minigolf'
     },
     theme: {
@@ -67,45 +66,64 @@ export default {
     openProject: 'Open project'
   },
   architecture: {
-    eyebrow: 'System',
-    title: 'How this site works',
+    eyebrow: 'My project',
+    title: 'This app',
     intro:
-      'The browser displays the content, the backend provides the data, and MongoDB stores the profile.',
-    frontend: 'Browser',
+      'This is my portfolio site, and it has a mini-golf game too. Both run on my Raspberry Pi 400 at home. I keep the profile data in MongoDB Atlas.',
+    frontend: 'Frontend',
     frontendText:
-      'Vue renders the pages and changes views without a full page reload.',
+      'I built the site with Vue 3. Nginx serves it to the browser and forwards API requests to the backend.',
     api: 'Backend',
-    apiText: 'Express provides the profile data to the frontend.',
-    database: 'MongoDB',
-    databaseText: 'The profile is stored as one document.',
-    flowAria: 'Application architecture',
-    frontendNode: 'Vue frontend',
-    apiNode: 'Express API',
-    browser: 'Browser',
-    backend: 'Backend',
-    persistence: 'Persistence',
-    stackEyebrow: 'Technology choices',
-    stackTitle: 'The tools behind the site',
+    apiText:
+      'I wrote the backend in Node.js and Express. It gets profile data from Atlas and stores feedback people leave on the site.',
+    database: 'MongoDB Atlas',
+    databaseText:
+      'I use MongoDB Atlas because I don’t run a database on the Pi. The backend gets the profile from there.',
+    flowAria: 'The browser, Raspberry Pi, and MongoDB Atlas',
+    clientNode: 'Browser',
+    hostNode: 'Raspberry Pi 400',
+    dataNode: 'MongoDB Atlas',
+    clientDetail: 'Your browser',
+    hostDetail: 'Frontend + API',
+    dataDetail: 'Profile data',
+    stackEyebrow: 'The tech',
+    stackTitle: 'The tools I use',
     stackIntro:
-      'The stack is intentionally small: each tool has a clear role in building, serving, storing, or validating the site.',
-    apiDocs: 'Open interactive API documentation',
+      'These are the tools I used to build and run the site.',
     frontendStack: 'Frontend',
     frontendStackText:
-      'Vue handles the interface, while Vite, routing, state, localization, and the component library keep the client-side application focused.',
+      'I wrote the frontend in Vue 3 and TypeScript. Vite builds it, and Nginx serves it from the Pi.',
     backendStack: 'Backend and API',
     backendStackText:
-      'The API is a small Express service with typed configuration, MongoDB persistence, validation, and server-side PDF generation.',
-    qualityStack: 'Delivery and quality',
+      'The backend is an API I wrote with Node.js and Express. It gets profile data from Atlas and stores feedback left on the site.',
+    qualityStack: 'Testing and releases',
     qualityStackText:
-      'Docker Compose provides local infrastructure, and automated tests and formatting tools help keep changes predictable.'
-  },
-  apiGuide: {
-    eyebrow: 'API Guide',
-    title: 'Interactive OpenAPI docs',
-    intro:
-      'Click through the endpoints, inspect request bodies, and try the API directly from this page.',
-    raw: 'Open raw OpenAPI JSON',
-    loading: 'Loading interactive docs…'
+      'When I push code to GitHub, Actions tests it and builds container images for the Pi. Flux updates the cluster with the new images.',
+    hostingEyebrow: 'Hosting',
+    hostingTitle: 'How I publish changes',
+    hostingIntro:
+      'The code is on GitHub, but the site runs at home. When I push a change, GitHub Actions and Flux deploy it to the Pi.',
+    piHostingTitle: 'Raspberry Pi 400',
+    piHostingText:
+      'The Pi has 4 GB of memory and runs the whole cluster. The frontend and backend have their own containers. If the Pi goes down, so does the site.',
+    k3sHostingTitle: 'K3s and Helm',
+    k3sHostingText:
+      'I installed K3s to run the app containers. I use Helm to describe how to install the frontend and backend and how much of the Pi they can use.',
+    gitOpsTitle: 'Flux CD and GitOps',
+    gitOpsText:
+      'Flux watches this GitHub repository. When new images land in GHCR, Flux updates their versions and starts them on the Pi.',
+    releaseTitle: 'Automatic releases',
+    releaseText:
+      'GitHub Actions tests the changes and checks the Helm chart. If everything passes, it builds ARM64 images and publishes them to GHCR.',
+    lanTitle: 'How do requests reach the app?',
+    lanText:
+      'The browser requests data from the same address it uses for the site. Nginx forwards /api requests to the backend inside the Pi, so the backend does not need a public address of its own.',
+    secretsTitle: 'Secrets',
+    secretsText:
+      'I keep credentials out of GitHub and pass them to the app as Kubernetes Secrets.',
+    tunnelTitle: 'Cloudflare Tunnel',
+    tunnelText:
+      'cloudflared connects from the Pi to Cloudflare. Cloudflare sends visitors to the frontend, so I don’t need to open ports on the router. The backend stays inside the Pi’s cluster.'
   },
   playground: {
     eyebrow: 'Minigolf',

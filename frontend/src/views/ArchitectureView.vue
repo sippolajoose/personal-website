@@ -13,11 +13,11 @@ const { t } = useI18n();
     </header>
 
     <div class="architecture-flow" :aria-label="t('architecture.flowAria')">
-      <div class="architecture-node architecture-node-primary"><span>01</span><strong>{{ t('architecture.frontendNode') }}</strong><small>{{ t('architecture.browser') }}</small></div>
+      <div class="architecture-node architecture-node-primary"><span>01</span><strong>{{ t('architecture.clientNode') }}</strong><small>{{ t('architecture.clientDetail') }}</small></div>
       <div class="architecture-connector">→</div>
-      <div class="architecture-node"><span>02</span><strong>{{ t('architecture.apiNode') }}</strong><small>{{ t('architecture.backend') }}</small></div>
+      <div class="architecture-node"><span>02</span><strong>{{ t('architecture.hostNode') }}</strong><small>{{ t('architecture.hostDetail') }}</small></div>
       <div class="architecture-connector">→</div>
-      <div class="architecture-node"><span>03</span><strong>MongoDB</strong><small>{{ t('architecture.persistence') }}</small></div>
+      <div class="architecture-node"><span>03</span><strong>{{ t('architecture.dataNode') }}</strong><small>{{ t('architecture.dataDetail') }}</small></div>
     </div>
 
     <div class="architecture-grid">
@@ -31,7 +31,6 @@ const { t } = useI18n();
         <p class="eyebrow">{{ t('architecture.stackEyebrow') }}</p>
         <h2>{{ t('architecture.stackTitle') }}</h2>
         <p>{{ t('architecture.stackIntro') }}</p>
-        <router-link class="button-secondary" to="/api-guide">{{ t('architecture.apiDocs') }}</router-link>
       </header>
 
       <div class="architecture-stack-grid">
@@ -60,7 +59,6 @@ const { t } = useI18n();
             <span>MongoDB</span>
             <span>MongoDB Driver</span>
             <span>Zod</span>
-            <span>PDFKit</span>
           </div>
         </article>
 
@@ -69,12 +67,62 @@ const { t } = useI18n();
           <h3>{{ t('architecture.qualityStack') }}</h3>
           <p>{{ t('architecture.qualityStackText') }}</p>
           <div class="architecture-tags">
-            <span>Docker Compose</span>
+            <span>GitHub Actions</span>
+            <span>GHCR</span>
+            <span>K3s</span>
+            <span>Helm</span>
+            <span>Flux CD</span>
             <span>Vitest</span>
             <span>Supertest</span>
             <span>ESLint</span>
             <span>Prettier</span>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="architecture-stack">
+      <header class="architecture-stack-header">
+        <p class="eyebrow">{{ t('architecture.hostingEyebrow') }}</p>
+        <h2>{{ t('architecture.hostingTitle') }}</h2>
+        <p>{{ t('architecture.hostingIntro') }}</p>
+      </header>
+
+      <div class="architecture-stack-grid">
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">01</span>
+          <h3>{{ t('architecture.piHostingTitle') }}</h3>
+          <p>{{ t('architecture.piHostingText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">02</span>
+          <h3>{{ t('architecture.k3sHostingTitle') }}</h3>
+          <p>{{ t('architecture.k3sHostingText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">03</span>
+          <h3>{{ t('architecture.gitOpsTitle') }}</h3>
+          <p>{{ t('architecture.gitOpsText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">04</span>
+          <h3>{{ t('architecture.releaseTitle') }}</h3>
+          <p>{{ t('architecture.releaseText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">05</span>
+          <h3>{{ t('architecture.lanTitle') }}</h3>
+          <p>{{ t('architecture.lanText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">06</span>
+          <h3>{{ t('architecture.secretsTitle') }}</h3>
+          <p>{{ t('architecture.secretsText') }}</p>
+        </article>
+        <article class="architecture-stack-card">
+          <span class="architecture-card-number">07</span>
+          <h3>{{ t('architecture.tunnelTitle') }}</h3>
+          <p>{{ t('architecture.tunnelText') }}</p>
         </article>
       </div>
     </section>

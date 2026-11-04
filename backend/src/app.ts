@@ -4,7 +4,6 @@ import { env } from './config/env';
 import { errorHandler } from './middleware/errorHandler';
 import { feedbackRouter } from './routes/feedback';
 import { healthRouter } from './routes/health';
-import { openApiRouter } from './routes/openapi';
 import { profileRouter } from './routes/profile';
 
 const allowedOrigins = env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean);
@@ -20,7 +19,6 @@ export function createApp() {
   app.use(express.json());
 
   app.use('/api', healthRouter);
-  app.use('/api', openApiRouter);
   app.use('/api', profileRouter);
   app.use('/api', feedbackRouter);
 

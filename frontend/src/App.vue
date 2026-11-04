@@ -75,7 +75,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="nav-secondary">
             <router-link to="/architecture">{{
-              t('app.navigation.architecture')
+              t('app.navigation.thisApp')
             }}</router-link>
             <router-link to="/playground">{{
               t('app.navigation.playground')
