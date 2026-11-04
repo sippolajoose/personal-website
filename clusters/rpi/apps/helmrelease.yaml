@@ -33,7 +33,7 @@ spec:
     frontend:
       image:
         repository: ghcr.io/sippolajoose/personal-website/frontend
-        tag: 0.0.4 # {"$imagepolicy": "flux-system:frontend:tag"}
+        tag: 0.0.5 # {"$imagepolicy": "flux-system:frontend:tag"}
     cloudflared:
       enabled: false
       tunnel:
