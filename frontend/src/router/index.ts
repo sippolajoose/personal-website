@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ApiGuideView from '../views/ApiGuideView.vue';
 import HomeView from '../views/HomeView.vue';
 import ProjectsView from '../views/ProjectsView.vue';
 import ArchitectureView from '../views/ArchitectureView.vue';
+import PlaygroundIndexView from '../views/PlaygroundIndexView.vue';
 import PlaygroundView from '../views/PlaygroundView.vue';
 
 export const router = createRouter({
@@ -24,13 +24,13 @@ export const router = createRouter({
       component: ArchitectureView
     },
     {
-      path: '/api-guide',
-      name: 'api-guide',
-      component: ApiGuideView
-    },
-    {
       path: '/playground',
       name: 'playground',
+      component: PlaygroundIndexView
+    },
+    {
+      path: '/playground/minigolf',
+      name: 'playground-minigolf',
       component: PlaygroundView
     }
   ]

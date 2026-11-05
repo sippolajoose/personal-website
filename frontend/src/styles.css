@@ -592,7 +592,8 @@ html[data-theme='dark'] .button-secondary {
 
 html[data-theme='dark'] .timeline-item,
 html[data-theme='dark'] .list-item {
-  border-color: rgba(180, 200, 230, 0.18);
+  border-color: var(--border);
+  background: #18243a;
 }
 
 .meta {
@@ -888,6 +889,16 @@ html[data-theme='dark'] .meta {
     transform 180ms ease,
     border-color 180ms ease,
     background-color 180ms ease;
+}
+
+.playground-card {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.playground-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .project-card:hover,
@@ -1324,132 +1335,10 @@ html[data-theme='dark'] .cv-resume {
   }
 }
 
-.api-guide-shell {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: 20px;
-}
-
-.api-guide-shell .scalar-app {
-  position: relative;
-  z-index: 1;
-  --scalar-custom-header-height: 0px;
-  --refs-header-height: 0px;
-  --refs-viewport-offset: 0px;
-  --refs-sidebar-height: 100%;
-  --scalar-background-1: var(--surface-strong);
-  --scalar-background-2: #f1ebe1;
-  --scalar-background-3: #e7dfd2;
-  --scalar-background-accent: rgba(27, 111, 91, 0.08);
-  --scalar-color-1: var(--text);
-  --scalar-color-2: var(--muted);
-  --scalar-color-3: #7b8494;
-  --scalar-color-accent: var(--accent);
-  --scalar-border-color: var(--border);
-  --scalar-button-1: var(--accent);
-  --scalar-button-1-hover: var(--accent-strong);
-  --scalar-button-1-color: #ffffff;
-  --scalar-tooltip-background: var(--surface-strong);
-  --scalar-tooltip-color: var(--text);
-  --scalar-link-color: var(--accent-strong);
-  --scalar-link-color-hover: var(--accent);
-  --scalar-sidebar-background-1: var(--surface-strong);
-  --scalar-sidebar-background-2: #f7f2ea;
-  --scalar-sidebar-item-hover-background: rgba(27, 111, 91, 0.06);
-  --scalar-sidebar-item-active-background: rgba(27, 111, 91, 0.12);
-  --scalar-sidebar-border-color: var(--border);
-  --scalar-sidebar-color-1: var(--text);
-  --scalar-sidebar-color-2: var(--muted);
-  --scalar-sidebar-color-active: var(--accent-strong);
-  --scalar-sidebar-search-background: var(--surface-strong);
-  --scalar-sidebar-search-border-color: var(--border);
-  --scalar-sidebar-search--color: var(--muted);
-}
-
-html[data-theme='dark'] .api-guide-shell .scalar-app {
-  --scalar-background-1: #121d33;
-  --scalar-background-2: #17233b;
-  --scalar-background-3: #1d2a44;
-  --scalar-background-accent: rgba(95, 211, 181, 0.1);
-  --scalar-color-1: #e8eefc;
-  --scalar-color-2: #a4b0c8;
-  --scalar-color-3: #7c8aa6;
-  --scalar-color-accent: #87ebd1;
-  --scalar-border-color: rgba(180, 200, 230, 0.16);
-  --scalar-button-1: #5fd3b5;
-  --scalar-button-1-hover: #87ebd1;
-  --scalar-button-1-color: #0d1220;
-  --scalar-tooltip-background: #121d33;
-  --scalar-tooltip-color: #e8eefc;
-  --scalar-link-color: #87ebd1;
-  --scalar-link-color-hover: #b8fff0;
-  --scalar-sidebar-background-1: #0f1728;
-  --scalar-sidebar-background-2: #17233b;
-  --scalar-sidebar-item-hover-background: rgba(95, 211, 181, 0.08);
-  --scalar-sidebar-item-active-background: rgba(95, 211, 181, 0.14);
-  --scalar-sidebar-border-color: rgba(180, 200, 230, 0.16);
-  --scalar-sidebar-color-1: #e8eefc;
-  --scalar-sidebar-color-2: #a4b0c8;
-  --scalar-sidebar-color-active: #87ebd1;
-  --scalar-sidebar-search-background: #121d33;
-  --scalar-sidebar-search-border-color: rgba(180, 200, 230, 0.16);
-  --scalar-sidebar-search--color: #a4b0c8;
-}
-
-.api-guide-shell .scalar-app.references-sidebar .t-doc__sidebar {
-  position: relative;
-  top: 0;
-  z-index: 1;
-  height: 100%;
-  max-height: none;
-}
-
-.api-guide-shell .scalar-app.references-sidebar .t-doc__sidebar .sidebar,
-.api-guide-shell
-  .scalar-app.references-sidebar
-  .t-doc__sidebar
-  .scalar-sidebar {
-  position: relative;
-  top: 0;
-  z-index: 1;
-}
-
-.api-guide-shell .scalar-app .t-doc__sidebar,
-.api-guide-shell .scalar-app .context-bar {
-  position: relative;
-  top: 0;
-  z-index: 1;
-}
-
-.api-guide-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.api-guide-panel {
-  min-height: 72vh;
-}
-
-.api-guide-loading {
-  padding: 16px 0 24px;
-  color: var(--muted);
-}
-
-.scalar-host {
-  min-height: 68vh;
-}
-
 @media (max-width: 860px) {
   .hero-grid,
   .grid-2 {
     grid-template-columns: 1fr;
-  }
-
-  .api-guide-header {
-    flex-direction: column;
   }
 }
 

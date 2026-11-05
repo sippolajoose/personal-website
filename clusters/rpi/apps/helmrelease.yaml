@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: personal-website
+  namespace: flux-system
+spec:
+  interval: 10m
+  releaseName: personal-website
+  targetNamespace: personal-website
+  chart:
+    spec:
+      chart: ./deploy/helm/personal-website
+      interval: 5m
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    backend:
+      image:
+        repository: ghcr.io/sippolajoose/personal-website/backend
+        tag: 0.0.8 # {"$imagepolicy": "flux-system:backend:tag"}
+      mongodb:
+        existingSecret: personal-website-secrets
+        secretKey: mongodb-uri
+    frontend:
+      image:
+        repository: ghcr.io/sippolajoose/personal-website/frontend
+        tag: 0.0.8 # {"$imagepolicy": "flux-system:frontend:tag"}
+    cloudflared:
+      enabled: true
+      tunnel:
+        existingSecret: cloudflare-tunnel
+        secretKey: token
