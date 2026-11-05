@@ -37,7 +37,7 @@ describe('PlaygroundIndexView', () => {
     const mountedView = mountView();
 
     expect(mountedView.text()).toContain('Playground');
-    expect(mountedView.text()).toContain('Mini golf');
+    expect(mountedView.text()).toContain('Minigolf');
     expect(mountedView.findComponent(RouterLinkStub).props('to')).toEqual({
       name: 'playground-minigolf'
     });
