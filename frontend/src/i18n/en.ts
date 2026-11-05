@@ -1,12 +1,12 @@
 export default {
   app: {
-    brand: 'Personal Website',
+    brand: 'Joose Sippola',
     navigation: {
       label: 'Main navigation',
       home: 'Home',
       projects: 'Projects',
       thisApp: 'This app',
-      playground: 'Minigolf'
+      playground: 'Playground'
     },
     theme: {
       light: 'Light mode',
@@ -64,6 +64,13 @@ export default {
     intro: 'A selection of things built and the solutions behind them.',
     empty: 'Selected projects will appear here soon.',
     openProject: 'Open project'
+  },
+  playgroundIndex: {
+    eyebrow: 'My experiments',
+    title: 'Playground',
+    intro: 'Small experiments and side projects.',
+    miniGolfTitle: 'Minigolf',
+    miniGolfDescription: 'A small browser-based mini golf course with adjustable courses and settings.'
   },
   architecture: {
     eyebrow: 'My project',

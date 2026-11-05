@@ -1,12 +1,12 @@
 export default {
   app: {
-    brand: 'Personal Website',
+    brand: 'Joose Sippola',
     navigation: {
       label: 'Päänavigaatio',
       home: 'Etusivu',
       projects: 'Projektit',
       thisApp: 'Tämä sovellus',
-      playground: 'Minigolf'
+      playground: 'Playground'
     },
     theme: {
       light: 'Vaalea tila',
@@ -64,6 +64,13 @@ export default {
     intro: 'Valikoima rakennettuja asioita ja niistä opittuja ratkaisuja.',
     empty: 'Valikoituja projekteja lisätään tänne myöhemmin.',
     openProject: 'Avaa projekti'
+  },
+  playgroundIndex: {
+    eyebrow: 'Omat kokeilut',
+    title: 'Playground',
+    intro: 'Tänne lisään pieniä kokeiluja ja sivuprojekteja.',
+    miniGolfTitle: 'Minigolf',
+    miniGolfDescription: 'Pieni selainpohjainen minigolfrata, jonka ratoja ja asetuksia voi muokata.'
   },
   architecture: {
     eyebrow: 'Oma projekti',

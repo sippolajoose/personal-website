@@ -890,6 +890,16 @@ html[data-theme='dark'] .meta {
     background-color 180ms ease;
 }
 
+.playground-card {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.playground-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .project-card:hover,
 .architecture-card:hover {
   transform: translateY(-3px);

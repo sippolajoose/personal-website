@@ -8,13 +8,16 @@ import {
   type GlobalThemeOverrides
 } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 import { useTheme } from './composables/theme';
 import SiteFooter from './components/SiteFooter.vue';
 import { toggleLocale } from './i18n';
 
 const { isDarkMode, themeMode, toggleTheme } = useTheme();
 const { locale, t } = useI18n();
+const route = useRoute();
 const naiveTheme = computed(() => (isDarkMode.value ? darkTheme : lightTheme));
+const isPlaygroundRoute = computed(() => route.path.startsWith('/playground'));
 const naiveThemeOverrides = computed<GlobalThemeOverrides | undefined>(() =>
   isDarkMode.value
     ? {
@@ -77,9 +80,11 @@ onBeforeUnmount(() => {
             <router-link to="/architecture">{{
               t('app.navigation.thisApp')
             }}</router-link>
-            <router-link to="/playground">{{
-              t('app.navigation.playground')
-            }}</router-link>
+            <router-link
+              to="/playground"
+              :class="{ 'router-link-active': isPlaygroundRoute }"
+              >{{ t('app.navigation.playground') }}</router-link
+            >
           </div>
         </nav>
 
