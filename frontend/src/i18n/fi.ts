@@ -69,22 +69,22 @@ export default {
     eyebrow: 'Oma projekti',
     title: 'Tämä sovellus',
     intro:
-      'Tämä on oma portfoliosivustoni, ja mukana on myös minigolfrata. Molemmat pyörivät kotona Raspberry Pi 400:lla. Profiilitiedot tallennan MongoDB Atlasiin.',
+      'Tämä on oma portfoliosivustoni. Se pyörii kotona Raspberry Pi 400:lla, ja tallennan profiilitiedot MongoDB Atlasiin.',
     frontend: 'Frontend',
     frontendText:
       'Tein sivut Vue 3:lla. Nginx tarjoilee ne selaimelle ja välittää API-pyynnöt backendille.',
     api: 'Backend',
     apiText:
-      'Kirjoitin backendin Node.js:llä ja Expressillä. Se hakee profiilitiedot Atlaksesta ja tallentaa vierailijoiden palautteet.',
+      'Kirjoitin backendin Node.js:llä ja Expressillä. Se hakee profiilitiedot ja tallentaa vierailijoiden palautteet tietokantaan.',
     database: 'MongoDB Atlas',
     databaseText:
-      'Käytän MongoDB Atlasia, koska tietokanta ei pyöri Piillä. Backend hakee profiilin sieltä.',
+      'Käytän MongoDB Atlasia tietokantapalveluna.',
     flowAria: 'Selain, Raspberry Pi ja MongoDB Atlas',
     clientNode: 'Selain',
     hostNode: 'Raspberry Pi 400',
     dataNode: 'MongoDB Atlas',
     clientDetail: 'Selaimesi',
-    hostDetail: 'Frontend + API',
+    hostDetail: 'Frontend + Backend',
     dataDetail: 'Profiilitiedot',
     stackEyebrow: 'Tekniikka',
     stackTitle: 'Työkalut',
@@ -95,7 +95,7 @@ export default {
       'Tein käyttöliittymän Vue 3:lla ja TypeScriptillä. Vite kokoaa sivut, ja Nginx tarjoilee ne Piiltä.',
     backendStack: 'Backend ja API',
     backendStackText:
-      'Backend on Node.js:llä ja Expressillä tehty API. Se hakee profiilitiedot Atlasista ja tallentaa sivustolle jätetyt palautteet.',
+      'Backend on Node.js:llä ja Expressillä tehty API. Se hakee profiilitiedot ja tallentaa sivustolle jätetyt palautteet tietokantaan.',
     qualityStack: 'Testaus ja julkaisu',
     qualityStackText:
       'Kun pushaan koodia GitHubiin, Actions testaa sen ja rakentaa Piille sopivat konttikuvat. Flux päivittää uudet kuvat klusteriin.',
@@ -105,7 +105,7 @@ export default {
       'Koodi on GitHubissa, mutta sivusto pyörii kotona. Kun pushaan muutoksen, GitHub Actions ja Flux hoitavat julkaisun Piille.',
     piHostingTitle: 'Raspberry Pi 400',
     piHostingText:
-      'Piissä on 4 Gt muistia, ja sillä pyörii koko klusteri. Frontend ja backend ovat omissa konteissaan. Jos Pi sammuu, myös sivusto menee pois päältä.',
+      'Piissä pyörii koko klusteri. Frontend ja backend ovat omissa konteissaan.',
     k3sHostingTitle: 'K3s ja Helm',
     k3sHostingText:
       'Asensin Piille K3s:n pitämään sovelluksen kontit käynnissä. Helmillä määrittelin, miten frontend ja backend asennetaan ja paljonko resursseja ne saavat.',
@@ -120,7 +120,7 @@ export default {
       'Selain pyytää datan samasta osoitteesta kuin sivunkin. Nginx välittää /api-pyynnöt backendille Piin sisällä, joten backendille ei tarvita omaa julkista osoitetta.',
     secretsTitle: 'Tunnukset',
     secretsText:
-      'Pidän tunnukset poissa GitHubista ja annan ne sovelluksille Kubernetes Secretien kautta.',
+      'Salaisuudet viedään sovelluksille Kubernetes Secretien kautta.',
     tunnelTitle: 'Cloudflare Tunnel',
     tunnelText:
       'cloudflared yhdistää Piiltä Cloudflareen. Cloudflare ohjaa sivustolle tulevan liikenteen frontendille, joten reitittimeen ei tarvitse tehdä porttiohjauksia. Backend pysyy Piin klusterin sisällä.'
