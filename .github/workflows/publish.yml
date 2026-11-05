@@ -3,7 +3,7 @@ name: Publish Raspberry Pi images
 on:
   push:
     branches:
-      - main
+      - master
       - feature/rpi-deployment
     paths-ignore:
       - clusters/rpi/apps/helmrelease.yaml
