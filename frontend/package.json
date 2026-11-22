@@ -10,6 +10,7 @@
     "typecheck": "node ../node_modules/vue-tsc/bin/vue-tsc.js -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "cytoscape": "^3.35.0",
     "naive-ui": "^2.42.0",
     "pinia": "^4.0.3",
     "vue": "^3.5.0",
@@ -17,8 +18,9 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@vue/test-utils": "^2.4.6",
+    "@types/cytoscape": "^3.21.9",
     "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/test-utils": "^2.4.6",
     "jsdom": "^26.1.0",
     "typescript": "^5.8.3",
     "vite": "^6.0.0",

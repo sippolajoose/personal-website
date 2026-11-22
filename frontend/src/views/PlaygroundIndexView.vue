@@ -9,6 +9,12 @@ const experiments = [
     titleKey: 'playgroundIndex.miniGolfTitle',
     descriptionKey: 'playgroundIndex.miniGolfDescription',
     route: { name: 'playground-minigolf' }
+  },
+  {
+    id: 'skill-graph',
+    titleKey: 'playgroundIndex.skillGraphTitle',
+    descriptionKey: 'playgroundIndex.skillGraphDescription',
+    route: { name: 'playground-skill-graph' }
   }
 ] as const;
 </script>
@@ -29,7 +35,9 @@ const experiments = [
         :to="experiment.route"
       >
         <div class="project-card-topline">
-          <span class="project-index">{{ String(index + 1).padStart(2, '0') }}</span>
+          <span class="project-index">{{
+            String(index + 1).padStart(2, '0')
+          }}</span>
           <span class="project-link" aria-hidden="true">↗</span>
         </div>
         <h2>{{ t(experiment.titleKey) }}</h2>

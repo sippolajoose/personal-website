@@ -70,7 +70,11 @@ export default {
     title: 'Playground',
     intro: 'Small experiments and side projects.',
     miniGolfTitle: 'Minigolf',
-    miniGolfDescription: 'A small browser-based mini golf course with adjustable courses and settings.'
+    miniGolfDescription:
+      'A small browser-based mini golf course with adjustable courses and settings.',
+    skillGraphTitle: 'Skill graph',
+    skillGraphDescription:
+      'Explore how skills, projects, and work experience connect.'
   },
   architecture: {
     eyebrow: 'My project',
@@ -84,8 +88,7 @@ export default {
     apiText:
       'I wrote the backend in Node.js and Express. It gets profile data and stores feedback people leave on the site in the database.',
     database: 'MongoDB Atlas',
-    databaseText:
-      'I use MongoDB Atlas as a database service.',
+    databaseText: 'I use MongoDB Atlas as a database service.',
     flowAria: 'The browser, Raspberry Pi, and MongoDB Atlas',
     clientNode: 'Browser',
     hostNode: 'Raspberry Pi 400',
@@ -95,8 +98,7 @@ export default {
     dataDetail: 'Profile data',
     stackEyebrow: 'The tech',
     stackTitle: 'The tools I use',
-    stackIntro:
-      'These are the tools I used to build and run the site.',
+    stackIntro: 'These are the tools I used to build and run the site.',
     frontendStack: 'Frontend',
     frontendStackText:
       'I wrote the frontend in Vue 3 and TypeScript. Vite builds it, and Nginx serves it from the Pi.',
@@ -126,8 +128,7 @@ export default {
     lanText:
       'The browser requests data from the same address it uses for the site. Nginx forwards /api requests to the backend inside the Pi, so the backend does not need a public address of its own.',
     secretsTitle: 'Secrets',
-    secretsText:
-      'Secrets are passed to the apps via Kubernetes Secrets.',
+    secretsText: 'Secrets are passed to the apps via Kubernetes Secrets.',
     tunnelTitle: 'Cloudflare Tunnel',
     tunnelText:
       'cloudflared connects from the Pi to Cloudflare. Cloudflare sends visitors to the frontend, so I don’t need to open ports on the router. The backend stays inside the Pi’s cluster.'
@@ -155,6 +156,41 @@ export default {
     holeComplete: 'Course complete. Nice shot.',
     nextHole: 'Next hole',
     playAgain: 'Play again'
+  },
+  skillGraph: {
+    eyebrow: 'Skills in context',
+    title: 'How do skills connect to projects?',
+    intro:
+      'Explore how skills, projects, and work experience connect. Projects and experience sit in the middle, with skills arranged above and below.',
+    loading: 'Loading the skill graph…',
+    loadError: 'The skill graph data could not be loaded.',
+    empty: 'There is no data for the skill graph yet.',
+    searchLabel: 'Search skills, projects, or experience',
+    searchPlaceholder: 'For example, Vue or a project',
+    filterLegend: 'Show items',
+    filterSkills: 'Skills',
+    filterProjects: 'Projects',
+    filterExperience: 'Work experience',
+    clearFilters: 'Clear filters',
+    resultCount: 'Showing {shown} of {total}',
+    noResults: 'No items match these filters.',
+    graphAria: 'Interactive skill graph',
+    edgeLegend: 'Connections',
+    technologyEdge: 'Technology connection',
+    selectedNodeHeading: 'Selected item',
+    nodeListHeading: 'All items',
+    selectNodeHint: 'Select a node to see its details.',
+    skill: 'Skill',
+    project: 'Project',
+    experience: 'Work experience',
+    technologies: 'Technologies',
+    noTechnologies: 'No technologies listed.',
+    relatedItems: 'Related items',
+    noRelatedItems: 'No related items.',
+    viewControls: 'Graph controls',
+    zoomOut: 'Zoom out',
+    zoomIn: 'Zoom in',
+    fitGraph: 'Fit graph'
   },
   errors: {
     profile: 'Failed to load profile.'
