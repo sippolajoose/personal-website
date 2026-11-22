@@ -26,8 +26,8 @@
 
 ## Validation
 
-- For frontend changes, run `npm run build --workspace=@site/frontend`.
-- For frontend tests, run `npm run test --workspace=@site/frontend`; root `npm test` runs both backend and frontend suites.
-- Check formatting of changed frontend files with `npm exec prettier -- --check <files>`.
+- During implementation, run only focused tests covering the changed code. Defer full test suites, project-wide typechecks, builds, lint, and formatting checks until implementation is complete.
+- Before completing a task, run the full validation suite: `npm test`, `npm run typecheck`, `npm run build`, `npm run lint`, and `npm run format`.
+- Root `npm test` runs both backend and frontend suites. For frontend-specific checks, use `npm run test --workspace=@site/frontend` and check formatting of changed files with `npm exec prettier -- --check <files>`.
 - For visual changes, check both themes and desktop/mobile layouts in a browser preview when available.
 - For backend changes, run `npm run typecheck --workspace=@site/backend` and `npm test --workspace=@site/backend`.

@@ -32,6 +32,11 @@ export const router = createRouter({
       path: '/playground/minigolf',
       name: 'playground-minigolf',
       component: PlaygroundView
+    },
+    {
+      path: '/playground/skill-graph',
+      name: 'playground-skill-graph',
+      component: () => import('../views/SkillGraphView.vue')
     }
   ]
 });

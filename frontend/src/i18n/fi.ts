@@ -70,7 +70,11 @@ export default {
     title: 'Playground',
     intro: 'Tänne lisään pieniä kokeiluja ja sivuprojekteja.',
     miniGolfTitle: 'Minigolf',
-    miniGolfDescription: 'Pieni selainpohjainen minigolfrata, jonka ratoja ja asetuksia voi muokata.'
+    miniGolfDescription:
+      'Pieni selainpohjainen minigolfrata, jonka ratoja ja asetuksia voi muokata.',
+    skillGraphTitle: 'Taitokartta',
+    skillGraphDescription:
+      'Tutki, miten osaaminen, projektit ja työkokemus liittyvät toisiinsa.'
   },
   architecture: {
     eyebrow: 'Oma projekti',
@@ -84,8 +88,7 @@ export default {
     apiText:
       'Kirjoitin backendin Node.js:llä ja Expressillä. Se hakee profiilitiedot ja tallentaa vierailijoiden palautteet tietokantaan.',
     database: 'MongoDB Atlas',
-    databaseText:
-      'Käytän MongoDB Atlasia tietokantapalveluna.',
+    databaseText: 'Käytän MongoDB Atlasia tietokantapalveluna.',
     flowAria: 'Selain, Raspberry Pi ja MongoDB Atlas',
     clientNode: 'Selain',
     hostNode: 'Raspberry Pi 400',
@@ -95,8 +98,7 @@ export default {
     dataDetail: 'Profiilitiedot',
     stackEyebrow: 'Tekniikka',
     stackTitle: 'Työkalut',
-    stackIntro:
-      'Näillä työkaluilla rakensin ja ajan sivustoa.',
+    stackIntro: 'Näillä työkaluilla rakensin ja ajan sivustoa.',
     frontendStack: 'Frontend',
     frontendStackText:
       'Tein käyttöliittymän Vue 3:lla ja TypeScriptillä. Vite kokoaa sivut, ja Nginx tarjoilee ne Piiltä.',
@@ -155,6 +157,41 @@ export default {
     holeComplete: 'Rata suoritettu. Hieno lyönti.',
     nextHole: 'Seuraava reikä',
     playAgain: 'Pelaa uudelleen'
+  },
+  skillGraph: {
+    eyebrow: 'Osaaminen yhteyksinä',
+    title: 'Miten osaaminen liittyy projekteihin?',
+    intro:
+      'Tutki taitojen, projektien ja työkokemuksen välisiä yhteyksiä. Projektit ja työkokemus ovat keskellä, ja osaamiset jakautuvat niiden ylä- ja alapuolelle.',
+    loading: 'Ladataan osaamiskarttaa…',
+    loadError: 'Osaamiskartan tietoja ei voitu ladata.',
+    empty: 'Osaamiskarttaan ei ole vielä tietoja.',
+    searchLabel: 'Hae osaamista, projekteja tai kokemusta',
+    searchPlaceholder: 'Esim. Vue tai projekti',
+    filterLegend: 'Näytettävät kohteet',
+    filterSkills: 'Osaaminen',
+    filterProjects: 'Projektit',
+    filterExperience: 'Työkokemus',
+    clearFilters: 'Tyhjennä suodattimet',
+    resultCount: 'Näytetään {shown} / {total} kohdetta',
+    noResults: 'Hakuehdoilla ei löytynyt kohteita.',
+    graphAria: 'Interaktiivinen osaamiskartta',
+    edgeLegend: 'Yhteydet',
+    technologyEdge: 'Teknologiayhteys',
+    selectedNodeHeading: 'Valittu kohde',
+    nodeListHeading: 'Kaikki kohteet',
+    selectNodeHint: 'Valitse solmu nähdäksesi sen tiedot.',
+    skill: 'Osaaminen',
+    project: 'Projekti',
+    experience: 'Työkokemus',
+    technologies: 'Teknologiat',
+    noTechnologies: 'Ei listattuja teknologioita.',
+    relatedItems: 'Liittyvät kohteet',
+    noRelatedItems: 'Ei liittyviä kohteita.',
+    viewControls: 'Kaavion ohjaimet',
+    zoomOut: 'Loitonna kaaviota',
+    zoomIn: 'Lähennä kaaviota',
+    fitGraph: 'Sovita kaavio'
   },
   errors: {
     profile: 'Profiilin lataaminen epäonnistui.'
